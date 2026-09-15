@@ -9,6 +9,9 @@ label splashscreen:
 label boot:
     window hide
     scene white
+    if not catalog_logged:
+        $ _log_catalog()
+        $ catalog_logged = True
     # 占位：停在白屏。点击后仍回到本 label，避免空跑剧本。
     pause
     jump boot

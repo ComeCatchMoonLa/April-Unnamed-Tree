@@ -59,16 +59,17 @@ init 1 python:
     def _log_catalog():
         nodes = NodeCatalog.all_nodes()
         cgs = NodeCatalog.all_cgs()
-        renpy.log("NodeCatalog: %d nodes, %d cgs" % (len(nodes), len(cgs)))
-        for node in nodes:
-            renpy.log("  node %s" % node.node_id)
-        for cg in cgs:
-            renpy.log("  cg %s" % cg.cg_id)
+        lines = ["NodeCatalog: %d nodes, %d cgs" % (len(nodes), len(cgs))]
+        lines.extend("  node %s" % node.node_id for node in nodes)
+        lines.extend("  cg %s" % cg.cg_id for cg in cgs)
+        for line in lines:
+            print(line)
+            renpy.log(line)
 
-    _log_catalog()
 
+default catalog_logged = False
 
-# 不挂启动路径。控制台：jump catalog_probe
+# 不挂默认启动。游戏窗口 Shift+O 打开控制台，输入 jump catalog_probe
 label catalog_probe:
     $ ncount = len(NodeCatalog.all_nodes())
     $ ccount = len(NodeCatalog.all_cgs())
