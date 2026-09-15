@@ -1,0 +1,12 @@
+---
+description: Sakura 仓库短指针：入口文档、切片节奏、禁止项
+alwaysApply: true
+---
+
+先读 `Docs/Dev/README.md` 与 `Docs/Ver/README.md`。
+当前只做 `Docs/Ver` 里未勾完的最小版本。
+一次只做一个可验收切片；切片完成后 commit 并等待 review，不要一次做完整小版本。
+遵守编码规范与接口设计。
+禁止实现需求分析里的「明确不做」。
+不要改节点 ID。
+不要用系统 Python 跑游戏。

@@ -1,0 +1,34 @@
+{
+  "files.associations": {
+    "*.rpy": "renpy",
+    "*.rpym": "renpy"
+  },
+  "files.exclude": {
+    "**/*.rpyc": true,
+    "**/*.rpymc": true,
+    "**/cache": true,
+    "**/saves": true
+  },
+  "search.exclude": {
+    "**/*.rpyc": true,
+    "**/cache": true,
+    "**/saves": true,
+    "**/dist": true
+  },
+  "[renpy]": {
+    "editor.formatOnSave": false,
+    "editor.defaultFormatter": null
+  },
+  "ruff.enable": false,
+  "ruff.exclude": ["**/*.rpy", "**/*.rpym"],
+  "python.analysis.exclude": ["**/*.rpy", "**/*.rpym", "**/game/saves", "**/cache"],
+  "python.analysis.ignore": ["**/*.rpy", "**/*.rpym"],
+  "cSpell.words": [
+    "omote",
+    "ura",
+    "RenPy",
+    "line_id",
+    "slot_id",
+    "弥生"
+  ]
+}
