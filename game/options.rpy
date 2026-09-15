@@ -20,7 +20,8 @@ define config.end_game_transition = None
 define config.window_show_transition = None
 define config.window_hide_transition = None
 
-define config.window = "show"
+# auto：有对白才出窗口。占位白屏不要底部空对话框。
+define config.window = "auto"
 
 # 打字速度固定；句间 AFM 默认见 engine_flags。
 default preferences.text_cps = 50

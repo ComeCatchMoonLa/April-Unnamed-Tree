@@ -19,6 +19,9 @@ dist/
 !.vscode/settings.json
 .idea/
 *.log
+log.txt
+traceback.txt
+lint.txt
 __pycache__/
 .python-version
 
