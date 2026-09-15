@@ -10,10 +10,10 @@ screen say(who, what):
         padding (40, 20, 40, 20)
 
         if who is not None:
-            text who id "who" color "#000000" size 28
-            text what id "what" color "#000000" size 22 ypos 40
+            text who id "who" color "#000000" size 28 font gui.text_font
+            text what id "what" color "#000000" size 22 ypos 40 font gui.text_font
         else:
-            text what id "what" color "#000000" size 22
+            text what id "what" color "#000000" size 22 font gui.text_font
 
 screen choice(items):
     vbox:
