@@ -1,8 +1,13 @@
-# 设计基准 1280×720，白底黑字。字体文件在 0.1 字体切片再接入。
+# 设计基准 1280×720，白底黑字。只引用包内字体。
 
 init python:
     gui.init(1280, 720)
     config.check_conflicting_properties = True
+
+# 衬线 `fonts/NotoSerifSC-Regular.otf` 已入包，设置页再切换；本版默认无衬线。
+define gui.text_font = "fonts/NotoSansSC-Regular.otf"
+define gui.name_text_font = "fonts/NotoSansSC-Regular.otf"
+define gui.interface_text_font = "fonts/NotoSansSC-Regular.otf"
 
 define gui.accent_color = "#000000"
 define gui.idle_color = "#000000"
