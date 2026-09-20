@@ -3,8 +3,5 @@
 screen scr_inner_dim():
     zorder -2
     modal False
-    add Solid("#000000"):
-        alpha 0.60
-        xfill True
-        yfill True
+    add Transform(Solid("#000000"), alpha=0.60, xysize=(1280, 720)):
         focusmask False
