@@ -164,7 +164,7 @@ label ch3_omote3_0009:
 
 label ch3_black:
     $ PlaySession.on_node_reached("ch3_black")
-    $ PlaySession.apply_style("omote")
+    $ PlaySession.apply_style("ura")
     $ script_restore_visuals("ch3_black")
     # 【画面：黑】
     # 【BGM：无】
@@ -181,9 +181,9 @@ label ch3_black_0005:
 label ch3_black_0006:
     $ script_say("ch3_black:0006", None, "世界瘦成一条走廊，走廊瘦成一根声带。")
 label ch3_black_0007:
-    $ script_say("ch3_black:0007", CHAR_YAYOI, "「还在？」我问。")
+    $ script_say("ch3_black:0007", None, "「还在？」我问。")
 label ch3_black_0008:
-    $ script_say("ch3_black:0008", CHAR_ME, "「在。」他说。")
+    $ script_say("ch3_black:0008", CHAR_HE, "「在。」他说。")
 label ch3_black_0009:
     $ script_say("ch3_black:0009", None, "他的声音，大约四十瓦。够用。")
 label ch3_black_0010:
@@ -217,7 +217,7 @@ label ch3_ura3_0002:
     $ script_say("ch3_ura3:0002", None, "前半本是库存，是利息，是预习。翻到后半，纸的脾气忽然变了。没有日期，没有颜色。取而代之的是——")
     # 【场景：旧校舍后·樱树】
     # 【BGM：钢琴独奏《四月，未命名的树》】
-    $ PlaySession.run_choice_fake(COPY_CHOICE_CH3_URA3, COPY_CHOICE_CH3_URA3)
+    $ PlaySession.run_choice_display(COPY_CHOICE_CH3_URA3, COPY_CHOICE_CH3_URA3)
 label ch3_ura3_0003:
     $ script_say("ch3_ura3:0003", None, "我的手指停在纸上。这套记号，我认得。")
 label ch3_ura3_0004:

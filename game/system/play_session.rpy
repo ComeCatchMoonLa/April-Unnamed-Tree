@@ -313,6 +313,8 @@ init python:
                 return "ura"
             if node.node_id.startswith("ch3_ura"):
                 return "ura"
+            if node.node_id == "ch3_black":
+                return "ura"
             return "omote"
 
         def _log_system_line(self, what):
