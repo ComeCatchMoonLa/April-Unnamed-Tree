@@ -60,3 +60,14 @@ define COPY_SETTINGS_SIZE_LARGE = "大"
 define COPY_SETTINGS_WINDOW = "窗口 / 全屏"
 define COPY_SETTINGS_WINDOW_WIN = "窗口"
 define COPY_SETTINGS_WINDOW_FULL = "全屏"
+
+define COPY_GALLERY_CHAPTER = "章节鉴赏"
+define COPY_GALLERY_CG = "CG 鉴赏"
+define COPY_GALLERY_LOCKED = "？？？"
+define COPY_GALLERY_CHAPTER_TABS = (
+    ("ch1", "首章"),
+    ("ch2", "中章"),
+    ("ch3", "尾章"),
+    ("after", "后日谈"),
+    ("inner", "里"),
+)

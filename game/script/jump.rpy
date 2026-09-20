@@ -13,6 +13,11 @@ init python:
         if renpy.has_label(extra):
             renpy.jump(extra)
             return
+        ctx = PlaySession.current()
+        # 0.8 才有全文 label；回放用占位句走到章末，避免 jump_missing 清会话。
+        if ctx is not None and ctx.play_mode == "replay" and seq == "0001":
+            renpy.jump("replay_stub")
+            return
         _jump_missing(line_id)
 
     def _jump_missing(line_id):
@@ -30,6 +35,7 @@ label ch1_start:
 label ch1_start_0002:
     $ PlaySession.on_line_shown("ch1_start:0002")
     "占位：ch1_start:0002"
+    $ PlaySession.advance_replay()
     jump ch1_choice
 
 label ch1_choice:
@@ -42,6 +48,7 @@ label ch1_choice:
 label ch1_choice_0002:
     $ PlaySession.on_line_shown("ch1_choice:0002")
     "占位：首章选择肢后"
+    $ PlaySession.advance_replay()
     jump ch2_choice
 
 label ch2_choice:
@@ -54,6 +61,7 @@ label ch2_choice:
 label ch2_choice_0002:
     $ PlaySession.on_line_shown("ch2_choice:0002")
     "占位：中章选择肢后"
+    $ PlaySession.advance_replay()
     jump ch3_staff
 
 label ch3_staff:
@@ -61,28 +69,44 @@ label ch3_staff:
     $ PlaySession.on_line_shown("ch3_staff:0001")
     "占位：制作名单"
     $ PlaySession.run_choice_true()
+    $ PlaySession.advance_replay()
     $ PlaySession.commit_leave()
 
 label ch2_start:
     $ PlaySession.on_node_reached("ch2_start")
     $ PlaySession.on_line_shown("ch2_start:0001")
     "占位：ch2_start:0001"
+    $ PlaySession.advance_replay()
     $ PlaySession.commit_leave()
 
 label ch3_ledger:
     $ PlaySession.on_node_reached("ch3_ledger")
     $ PlaySession.on_line_shown("ch3_ledger:0001")
     "占位：ch3_ledger:0001"
+    $ PlaySession.advance_replay()
     $ PlaySession.commit_leave()
 
 label after_start:
     $ PlaySession.on_node_reached("after_start")
     $ PlaySession.on_line_shown("after_start:0001")
     "占位：after_start:0001"
+    $ PlaySession.advance_replay()
     $ PlaySession.commit_leave()
 
 label inner_start:
     $ PlaySession.on_node_reached("inner_start")
     $ PlaySession.on_line_shown("inner_start:0001")
     "占位：inner_start:0001"
+    $ PlaySession.advance_replay()
     $ PlaySession.commit_leave()
+
+label replay_stub:
+    $ _stub_ctx = PlaySession.current()
+    if _stub_ctx is None:
+        jump boot
+    $ _stub_node = _stub_ctx.node_id
+    $ PlaySession.on_node_reached(_stub_node)
+    $ PlaySession.on_line_shown("%s:0001" % _stub_node)
+    "占位：[_stub_node]:0001"
+    $ PlaySession.advance_replay()
+    jump boot

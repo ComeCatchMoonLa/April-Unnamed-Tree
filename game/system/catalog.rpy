@@ -37,6 +37,18 @@ init python:
             # 暂用该章末节点首句；0.8 有真实末句后再改，不另加字段。
             return self.first_line_id(nodes[-1].node_id)
 
+        def next_node_in_chapter(self, node_id):
+            node = self.get_node(node_id)
+            if node is None:
+                return None
+            nodes = self.nodes_in_chapter(node.chapter_id)
+            for index, item in enumerate(nodes):
+                if item.node_id == node_id:
+                    if index + 1 < len(nodes):
+                        return nodes[index + 1].node_id
+                    return None
+            return None
+
         def get_cg(self, cg_id):
             cg = CG_BY_ID.get(cg_id)
             if cg is None:

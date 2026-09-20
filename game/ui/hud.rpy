@@ -67,6 +67,7 @@ screen scr_hud():
         renpy.get_screen("scr_settings")
         or renpy.get_screen("scr_log")
         or renpy.get_screen("scr_gallery")
+        or renpy.get_screen("scr_gallery_cg")
         or renpy.get_screen("scr_staff_menu")
         or renpy.get_screen("scr_choice_fake")
         or renpy.get_screen("scr_choice_display")

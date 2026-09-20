@@ -3,10 +3,7 @@
 image white = Transform("images/white.png", xysize=(1280, 720))
 
 label splashscreen:
-    python:
-        if DEBUG_RESET_ON_BOOT:
-            SaveStore.clear_slot(SLOT_MAIN)
-            UnlockStore.clear_all()
+    $ debug_apply_boot()
     return
 
 label boot:

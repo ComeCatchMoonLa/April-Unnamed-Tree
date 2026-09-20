@@ -81,6 +81,16 @@ init python:
                 return False
             return self._enter_mode_node("replay", node_id)
 
+        def advance_replay(self):
+            ctx = self._context
+            if ctx is None or ctx.play_mode != "replay":
+                return False
+            next_id = NodeCatalog.next_node_in_chapter(ctx.node_id)
+            if next_id is None:
+                self.commit_leave()
+                return True
+            return self._enter_mode_node("replay", next_id)
+
         def on_node_reached(self, node_id):
             node = NodeCatalog.get_node(node_id)
             if node is None:
