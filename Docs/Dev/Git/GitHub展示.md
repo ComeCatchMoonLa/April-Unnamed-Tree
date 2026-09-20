@@ -1,58 +1,40 @@
 # GitHub 展示
 
-- 目的：同时服务开发者克隆与玩家下载。本轮只给模板，不创建仓库根 README、不建 Pages、不选定 License。
-- 读者：初始化 GitHub 仓库的人。
+- 目的：约定仓库 About、根 README、Releases 怎么给开发者与玩家看。不改玩法。
+- 读者：发版、改仓库简介的人。
 - 关系：忽略规则见 [Git工作流](Git工作流.md)。文档入口仍是 [Docs/Dev/README.md](../README.md)。小版本见 [Docs/Ver/README.md](../../Ver/README.md)。
-- 版本：v1.2
+- 版本：v1.4
 - 日期：2026-09-20
+- 仓库：https://github.com/ComeCatchMoonLa/Sakura
+
+根 `README.md`、标签 `v1.0.0`、Releases 双端包、About 简介与 Topics **已经落盘/已发布**。License 仍待填。不要建 Pages。
 
 ## 1. 仓库 About
 
-初始化时填写：
+已填，以后保持一致（不要改成假协议名）：
 
 - Description：`本地 ADV《四月，未命名的树》—— Ren'Py 8，Windows / Android`
-- Topics 建议：`renpy` `visual-novel` `adv` `galgame` `chinese`
-- 勾选 Releases；Wiki 不必开
+- Topics：`renpy` `visual-novel` `adv` `galgame` `chinese`
+- Releases：开；Wiki：关
 - License：**待填**。未选定前不要在 GitHub 点 License 模板，也不要在根 README 写假协议名
 
-## 2. 开发者向：根 README 模板
+## 2. 根 README
 
-实现阶段拷到仓库根 `README.md`。可按当时真实目录微调，但必须包含文档入口。
+正文以仓库根 [`README.md`](../../../README.md) 为准，不要在本文再贴一份会过期的拷贝。
 
-````markdown
-# 四月，未命名的树
+约定仍有效：
 
-本地文字冒险（ADV）。Windows 10+ 与 Android 5.0+。无网页版。
-
-本版本无正式美术、音乐、语音；画面为白底黑字占位。
-
-## 开发
-
-- 引擎：Ren'Py 8 SDK（用 Launcher 打开本目录，不要用系统 Python 运行）
-- 编辑器：Cursor Profile「Py Dev」+ 工作区设置，见 `Docs/Dev/调研/开发环境.md`
-- 开发文档入口：[`Docs/Dev/README.md`](Docs/Dev/README.md)
-- 小版本 TODO：[`Docs/Ver/README.md`](Docs/Ver/README.md)
-- 剧本：`Docs/Res/剧本.txt`
-
-目录（实现后）：
-
-```text
-Docs/     文档
-game/     脚本、系统、UI、数据、占位图、字体
-```
-
-出包：在 Ren'Py Launcher 构建 Windows / Android。出包前跑 Lint，并勾 `Docs/Dev/测试/验收清单.md`。
-
-## 玩家
-
-从 Releases 下载对应包。说明见下方「玩家向」发布约定。
-````
-
-根 README 不要粘贴整份设计。
+- 必须有文档入口：`Docs/Dev/README.md`、`Docs/Ver/README.md`
+- 必须嵌入 `Docs/Res/标题主界面.png` 与 `Docs/Res/对白.png`
+- 写明引擎用 Launcher、不要系统 Python、工程目录是上一级 `Renpy_Projects`
+- 不要把整份设计粘进 README
+- 玩家只指向 Releases，不在 README 教编译
 
 ## 3. 玩家向：Release
 
-资产命名：
+当前最新：https://github.com/ComeCatchMoonLa/Sakura/releases/tag/v1.0.0
+
+以后每个小版本标签同样挂两文件（**不进 git**）：
 
 | 平台 | 文件名 |
 |---|---|
@@ -67,32 +49,42 @@ Release 说明至少含：
 - 单存档、无回滚
 - 文档不面向玩家；玩家不需要装 Ren'Py SDK
 
-截图：`Docs/Res/标题主界面.png`、`Docs/Res/对白.png`。不要设置/Log/鉴赏，不要程序花瓣图。
+仓库内截图：`Docs/Res/标题主界面.png`、`Docs/Res/对白.png`。根 `README.md` 与 `Docs/Ver/README.md` 必须嵌入这两张。不要设置/Log/鉴赏，不要程序花瓣图。这两张是文档资源，不要挪进 `game/images/`。
 
 ## 4. GitHub Pages
 
-可选单页，路径建议 `docs/site/` 或仓库 Pages 根（注意与 `Docs/` 开发文档分开，避免混淆）。
+可选。路径建议 `docs/site/` 或仓库 Pages 根（与 `Docs/` 开发文档分开）。
 
-单页结构：
+若做单页：标题与一句话、指向最新 Release 的下载、平台说明、声明无语音/无正式美术/标记音效不播放。不要写源码编译教程（那是根 README 的事）。不要放空下载按钮。
 
-1. 标题与一句话简介
-2. 下载链接（指向最新 Release）
-3. 平台说明
-4. 声明：无语音、无正式美术、标记音效不播放
-5. 不提供源码编译教程（那是根 README 的事）
-
-本阶段不强制上线 Pages。未发布包时不要放空下载按钮。
+**现在不上 Pages。**
 
 ## 5. 安全与展示边界
 
-- 不要在 README 贴存档路径里的个人进度
-- 不要公开 Android 签名密钥
-- 仓库可以公开源码；`saves/` 不得进库
+- 不要在 README 贴存档路径里的个人进度（可以写「档在用户目录、不在安装包」）
+- 不要公开 Android 签名密钥，不要把 `.keystore` 当 Release 资产
+- 仓库可以公开源码；`saves/`、构建产物、`dists` 不得进库
 
-## 6. 修订记录
+## 6. Contributors 侧栏
+
+GitHub 仓库页 **Contributors: No contributors** 不是没人提交。当前 `main` 作者是：
+
+```text
+ComeCatchMoonLa <comecatchmoonla@example.com>
+```
+
+`example.com` 无法验证，GitHub 不能把提交算到账号上，侧栏就是空的。`.mailmap` 改不了这个侧栏。
+
+不要为了填侧栏去改已经 push 的作者（等于重写 `main` 再 force push）。
+
+以后新提交要出现在 Contributors：在 [GitHub Emails](https://github.com/settings/emails) 看已验证邮箱，本机自己改 `user.email` 与之相同。Agent **不改** git config。旧提交仍不会出现。
+
+## 7. 修订记录
 
 | 版本 | 变更 |
 |---|---|
 | v1.0 | 开发者 README 模板 + 玩家 Release/Pages 约定；License 待填。 |
 | v1.1 | 根 README 模板增加 Docs/Ver 入口。 |
 | v1.2 | Win Release 改为 `.7z`；Android 用 Universal APK；截图定为标题+对白。 |
+| v1.3 | 改为已发布状态：指向真 README / v1.0.0 Release；不再当初始化模板。 |
+| v1.4 | README/Ver 必须嵌展示截图；记下 Contributors 为空是 example.com 邮箱。 |

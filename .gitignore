@@ -1,5 +1,7 @@
-# Ren'Py 编译与运行时（现有）
+# Ren'Py 编译与运行时
 *.rpyc
+*.rpymc
+*.rpa
 game/cache/
 game/saves/
 log.txt
@@ -9,6 +11,15 @@ traceback.txt
 dist/
 *.apk
 *.aab
+*.exe
 *.keystore
 android.keystore
 bundle.keystore
+
+# 本地与系统
+.idea/
+*.log
+__pycache__/
+Thumbs.db
+Desktop.ini
+.DS_Store

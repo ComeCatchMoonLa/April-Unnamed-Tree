@@ -3,8 +3,8 @@
 - 目的：给开发与 AI 开流提供唯一入口，规定阅读顺序与文档职责。
 - 读者：实现者、评审者、AI 会话。
 - 关系：本文件只做导航，不重复产品规则。
-- 版本：v1.1
-- 日期：2026-09-15
+- 版本：v1.2
+- 日期：2026-09-20
 - 项目根：`Sakura/`
 - 剧本源：[Docs/Res/剧本.txt](../Res/剧本.txt)
 - 游戏名：`四月，未命名的树`
@@ -17,7 +17,7 @@
 2. 设计：游戏规则、架构、接口
 3. 设计评审：对照清单，不通过不准开工
 4. 实现规范 + Git 规范
-5. 按 [Docs/Ver](../Ver/README.md) 当前小版本 TODO 编码
+5. 按 [Docs/Ver](../Ver/README.md) **未勾完的最小版本** TODO 编码（没有未勾完项时不要自行开下一版本）
 6. 代码评审
 7. 按该版本列出的验收项测试（含 `renpy lint`）
 
@@ -25,41 +25,23 @@
 调研 → 设计 → 设计评审 → 实现/Git 规范 → Docs/Ver 当前版本 → 编码 → 代码评审 → 验收
 ```
 
-一次 AI 会话只做一个 `system` 或 `ui` 子系统，并对齐 [Docs/Ver](../Ver/README.md) 当前小版本。必读：本 README + 该版本 TODO + 该子系统接口文 + [编码规范](实现/编码规范.md) + [代码评审与AI开流](评审/代码评审与AI开流.md)。
+一次 AI 会话只做一个 `system` 或 `ui` 子系统，并对齐 [Docs/Ver](../Ver/README.md) **未勾完的最小版本**。必读：本 README + 该版本 TODO + 该子系统接口文 + [编码规范](实现/编码规范.md) + [代码评审与AI开流](评审/代码评审与AI开流.md)。
 
 ## 2. 目录
 
 ```text
-Docs/Dev/
-  README.md
-  调研/
-    需求分析.md
-    技术选型与可行性.md
-    开发环境.md
-  设计/
-    游戏设计-产品与叙事.md
-    游戏设计-界面与操作.md
-    游戏设计-存档与播放.md
-    架构设计.md
-    接口设计-数据与存档.md
-    接口设计-播放与UI.md
-  实现/
-    编码规范.md
-    接口实现约定.md
-  测试/
-    测试策略.md
-    验收清单.md
-  评审/
-    设计评审.md
-    代码评审与AI开流.md
-  Git/
-    Git工作流.md
-    GitHub展示.md
-
-Docs/Ver/                   # 各小版本 TODO，见该目录 README
+Docs/
+  Dev/                      # 本目录：开发指导
+    README.md
+    调研/  设计/  实现/  测试/  评审/  Git/
+  Ver/                      # 小版本 TODO，见该目录 README
+  Res/                      # 文档资源，不是运行时
+    剧本.txt                # 设计源；禁止改、禁止当游戏脚本
+    标题主界面.png          # GitHub / README 展示
+    对白.png
 ```
 
-文档根目录是 `Docs/`（不是 `docs/`）。
+文档根目录是 `Docs/`（不是 `docs/`）。运行时白图在 `game/images/`；`Docs/**` 不进玩家包。
 
 ## 3. 职责
 
@@ -67,7 +49,7 @@ Docs/Ver/                   # 各小版本 TODO，见该目录 README
 |---|---|---|
 | [需求分析](调研/需求分析.md) | 产品范围、平台、明确不做 | 引擎细节、函数签名 |
 | [技术选型与可行性](调研/技术选型与可行性.md) | 为何 Ren'Py 8、风险 | 完整接口 |
-| [开发环境](调研/开发环境.md) | Py Dev 插件、lint、工作区模板 | 玩法规则 |
+| [开发环境](调研/开发环境.md) | Py Dev 插件、lint、已落盘 `.vscode`、8.5.3 Launcher | 玩法规则 |
 | [游戏设计-产品与叙事](设计/游戏设计-产品与叙事.md) | 章、节点、CG、占位资源 | 存档字段细节 |
 | [游戏设计-界面与操作](设计/游戏设计-界面与操作.md) | 菜单、HUD、快捷键、设置、Log | 架构分层 |
 | [游戏设计-存档与播放](设计/游戏设计-存档与播放.md) | 单槽、Auto、选择肢、表里、亮度 | Python 模块路径 |
@@ -79,9 +61,9 @@ Docs/Ver/                   # 各小版本 TODO，见该目录 README
 | [测试策略](测试/测试策略.md) | 测什么、不测什么 | 改需求 |
 | [验收清单](测试/验收清单.md) | 可勾选用例 | 实现代码 |
 | [设计评审](评审/设计评审.md) | 开工前门禁 | 改已拍板玩法 |
-| [代码评审与AI开流](评审/代码评审与AI开流.md) | 会话切分、禁止扩 scope | `.cursor/rules` 正文（实现阶段再落盘） |
-| [Git工作流](Git/Git工作流.md) | 分支、提交、gitignore 模板 | 本轮不创建仓库根文件 |
-| [GitHub展示](Git/GitHub展示.md) | 开发者 README + 玩家展示模板 | 擅自选定 License |
+| [代码评审与AI开流](评审/代码评审与AI开流.md) | 会话切分、禁止扩 scope | 整份设计贴进 `.cursor/rules` |
+| [Git工作流](Git/Git工作流.md) | 分支、提交、已落盘 `.gitignore` | 提交密钥 / 安装包 / 玩家存档 |
+| [GitHub展示](Git/GitHub展示.md) | About、README、Releases、截图与 Contributors | 擅自选定 License |
 | [小版本 TODO](../Ver/README.md) | 每个小版本的实现清单 | 改玩法规则 |
 
 ## 4. 已锁定 ID（禁止改名）
@@ -98,7 +80,8 @@ CG：`cg_yayoi_backlight` `cg_sakura_blizzard` `cg_fullbloom_backlight` `cg_blac
 ## 5. 文档边界
 
 - 开发指导在 `Docs/Dev/`；实现顺序与勾选清单在 `Docs/Ver/`。
-- 不把游戏代码写进文档目录。`.cursor/rules`、仓库根 `README.md` / `.gitignore` / `.vscode/` 在对应小版本 TODO 里落盘。
+- `Docs/Res/` 只放文档资源（剧本源、仓库展示截图）。不要把它们挪进 `game/`，也不要把运行时白图拷进 `Docs/Res/`。
+- 不把游戏代码写进文档目录。`.cursor/rules`、仓库根 `README.md` / `.gitignore` / `.vscode/` **已经落盘**，不要再当模板拷一遍。
 - 不改 [Docs/Res/剧本.txt](../Res/剧本.txt)。
 
 ## 6. 修订记录
@@ -107,3 +90,4 @@ CG：`cg_yayoi_backlight` `cg_sakura_blizzard` `cg_fullbloom_backlight` `cg_blac
 |---|---|
 | v1.0 | 按六模块落盘文档地图。 |
 | v1.1 | Auto 改引擎默认；增加 `Docs/Ver` 入口。 |
+| v1.2 | 地图补 `Docs/Res`；Git / rules 改为已落盘。 |
