@@ -3,7 +3,7 @@
 - 目的：给出播放会话、Auto、选择肢、screen 与 label 契约。
 - 读者：system、UI、脚本、评审、AI 会话。
 - 关系：数据层见 [接口设计-数据与存档](接口设计-数据与存档.md)；行为见 [游戏设计-存档与播放](游戏设计-存档与播放.md) 与 [游戏设计-界面与操作](游戏设计-界面与操作.md)。
-- 版本：v1.3
+- 版本：v1.4
 - 日期：2026-09-20
 
 参数不得超过 5 个。会话状态放在 `PlayContext`，不要把上下文拆成一长串实参。
@@ -60,7 +60,7 @@ PlayContext
 
 - 句间等待、点击是否退出 Auto、模态暂停：全部跟引擎默认。
 - 禁止自写 pending/active，禁止在点击路径里保留 Auto。
-- `SettingsStore.sync_afm` 把 `afm_level` 写进 `preferences.afm_time`。
+- `SettingsStore.sync_afm` 按 `afm_level` 写 `preferences.afm_time` 与 `preferences.text_cps`。
 - screen 里也可用引擎 `Preference("auto-forward enable")`，但必须与 `toggle_afm` / `A` 改同一 preference。
 
 ## 4. 选择肢入口
@@ -99,7 +99,7 @@ PlayContext
 |---|---|---|
 | `scr_title` | 标题 | 主进度一键三态；里解锁后紧插其下；Esc 不退出 |
 | `scr_hud` | 游玩/回放 overlay | 五键；replay 时 Save 禁用 |
-| `scr_settings` | 模态 | 选项四项 + 快捷键只读页；F1 关闭自己 |
+| `scr_settings` | 模态 | 选项三项 + 快捷键两列只读页；F1 关闭自己 |
 | `scr_log` | 模态 | 只读；不可跳转 |
 | `scr_gallery` | 鉴赏 | 章节/CG 分页 |
 | `scr_gallery_cg` | CG 全屏 | 白图+名称；点击回列表 |
@@ -111,7 +111,7 @@ PlayContext
 
 HUD 与快捷键必须调用同一 PlaySession 函数（Return/Save）以及同一 `toggle_afm`，禁止各写一套。
 
-设置中 Android 隐藏窗口/全行。字体列表来自内置 `font_id`。
+设置中 Android 隐藏窗口/全行。无字体列表。Windows 保留引擎 `F` 切全屏。
 
 ## 7. 样式与亮度
 
@@ -131,6 +131,7 @@ HUD 与快捷键必须调用同一 PlaySession 函数（Return/Save）以及同�
 | `S` | play 则 `SaveStore.write_line`；replay 忽略 |
 | `F1` | 开关设置 |
 | `Esc` | 游戏场景 = Return；标题忽略；设置打开时关设置 |
+| `F` | 切换窗口/全屏（仅 Windows；与设置窗口项同一 preference） |
 | Android 返回 | 同当前场景的 Return / 关设置 |
 
 ## 9. 完成定义（本接口）
@@ -150,3 +151,4 @@ HUD 与快捷键必须调用同一 PlaySession 函数（Return/Save）以及同�
 | v1.1 | 删除 AutoController；改为 `toggle_afm` 与引擎 AFM。 |
 | v1.2 | 标题显隐；`start_new_game` 不再作为有槽玩家入口。 |
 | v1.3 | 主进度三态；`enter_after` / `enter_inner` 按槽续玩。 |
+| v1.4 | 设置三项；速度带动 CPS；快捷键页两列；保留 `F`。 |
