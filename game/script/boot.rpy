@@ -1,6 +1,5 @@
-# 启动后白底占位。尚无标题 screen。
+# 启动后进标题。白图须铺满设计分辨率。
 
-# 位图须铺满设计分辨率；原图像素尺寸不够时 scene 不会自动拉伸。
 image white = Transform("images/white.png", xysize=(1280, 720))
 
 label splashscreen:
@@ -12,6 +11,12 @@ label boot:
     if not catalog_logged:
         $ _log_catalog()
         $ catalog_logged = True
-    # 占位：停在白屏。点击后仍回到本 label，避免空跑剧本。
-    pause
-    jump boot
+    jump title_loop
+
+label title_loop:
+    window hide
+    scene white
+    # 探针或占位句末 jump boot 时可能还挂着会话/暗层。
+    $ PlaySession._clear()
+    call screen scr_title
+    jump title_loop

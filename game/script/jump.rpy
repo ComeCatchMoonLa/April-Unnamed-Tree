@@ -1,4 +1,4 @@
-# 按 line_id 跳转。找不到则清会话回 boot（尚无标题）。
+# 按 line_id 跳转。找不到则清会话回 boot（进标题）。
 
 init python:
     def jump_to_line(line_id):
@@ -20,9 +20,6 @@ init python:
         PlaySession._clear()
         renpy.jump("boot")
 
-
-label title_loop:
-    jump boot
 
 label ch1_start:
     $ PlaySession.on_node_reached("ch1_start")

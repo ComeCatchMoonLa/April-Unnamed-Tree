@@ -1,4 +1,4 @@
-# 最小 screen：覆盖官方模板里的 Skip/Hide/存档柜入口。不实现标题与 HUD。
+# 覆盖官方模板里的 Skip/Hide/存档柜入口。标题在 ui/title.rpy。
 
 screen say(who, what):
     window:

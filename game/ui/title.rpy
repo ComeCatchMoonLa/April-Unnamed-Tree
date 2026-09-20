@@ -1,0 +1,46 @@
+# 主界面八按钮。Esc 必须吞掉，主界面不能退出游戏。
+
+screen title_entry(caption, btn_action, enabled=True, emphasized=False):
+    textbutton caption:
+        action btn_action
+        sensitive enabled
+        text_size (30 if emphasized else 22)
+        text_color "#000000"
+        text_hover_color "#333333"
+        text_insensitive_color "#888888"
+        text_font gui.interface_text_font
+        background None
+        hover_background None
+        xalign 0.5
+        padding (8, 4)
+
+screen scr_title():
+    $ has_save = SaveStore.has_slot(SLOT_MAIN)
+    $ after_on = UnlockStore.is_after_unlocked()
+    $ inner_on = UnlockStore.is_inner_unlocked()
+
+    key "K_ESCAPE" action NullAction()
+    key "game_menu" action NullAction()
+
+    vbox:
+        xalign 0.5
+        yalign 0.42
+        spacing 8
+
+        text config.name:
+            color "#000000"
+            size gui.title_text_size
+            font gui.interface_text_font
+            xalign 0.5
+            textalign 0.5
+
+        null height 24
+
+        use title_entry(COPY_TITLE_NEW, Function(PlaySession.start_new_game), True, not has_save)
+        use title_entry(COPY_TITLE_CONTINUE, Function(PlaySession.continue_game), has_save, has_save)
+        use title_entry(COPY_TITLE_AFTER, Function(PlaySession.enter_after), after_on)
+        use title_entry(COPY_TITLE_INNER, Function(PlaySession.enter_inner), inner_on)
+        use title_entry(COPY_TITLE_GALLERY, Show("scr_gallery"))
+        use title_entry(COPY_TITLE_STAFF, Show("scr_staff_menu"))
+        use title_entry(COPY_TITLE_SETTINGS, Show("scr_settings"))
+        use title_entry(COPY_TITLE_QUIT, Quit(confirm=False))
