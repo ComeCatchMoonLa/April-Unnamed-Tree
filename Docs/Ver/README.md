@@ -6,7 +6,7 @@
 - 版本：v1.2
 - 日期：2026-09-20
 
-**状态：1.0 已打标签 [`v1.0.0`](https://github.com/ComeCatchMoonLa/Sakura/releases/tag/v1.0.0)。没有未勾完的版本时，不要自行开下一版本。**
+**状态：1.0 已打标签 [`v1.0.0`](https://github.com/ComeCatchMoonLa/April-Unnamed-Tree/releases/tag/v1.0.0)。没有未勾完的版本时，不要自行开下一版本。**
 
 ## 规则
 

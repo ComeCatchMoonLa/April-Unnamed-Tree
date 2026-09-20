@@ -29,6 +29,6 @@ Win 存档在用户目录（`%APPDATA%\RenPy\AprilUnnamedTree\`），不在安�
 
 ## 玩家
 
-从 [Releases](https://github.com/ComeCatchMoonLa/Sakura/releases) 下载 `April-Unnamed-Tree-win-v*.7z` 或 `April-Unnamed-Tree-android-v*.apk`。需要 Windows 10+ 或 Android 5.0+。不需要安装 Ren'Py SDK。
+从 [Releases](https://github.com/ComeCatchMoonLa/April-Unnamed-Tree/releases) 下载 `April-Unnamed-Tree-win-v*.7z` 或 `April-Unnamed-Tree-android-v*.apk`。需要 Windows 10+ 或 Android 5.0+。不需要安装 Ren'Py SDK。
 
 本版本无语音、无正式美术、无音乐。单存档、无回滚。玩家向约定见 [`Docs/Dev/Git/GitHub展示.md`](Docs/Dev/Git/GitHub展示.md)。

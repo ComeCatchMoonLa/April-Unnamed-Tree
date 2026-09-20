@@ -3,9 +3,11 @@
 - 目的：约定仓库 About、根 README、Releases 怎么给开发者与玩家看。不改玩法。
 - 读者：发版、改仓库简介的人。
 - 关系：忽略规则见 [Git工作流](Git工作流.md)。文档入口仍是 [Docs/Dev/README.md](../README.md)。小版本见 [Docs/Ver/README.md](../../Ver/README.md)。
-- 版本：v1.4
-- 日期：2026-09-20
-- 仓库：https://github.com/ComeCatchMoonLa/Sakura
+- 版本：v1.5
+- 日期：2026-09-21
+- 仓库：https://github.com/ComeCatchMoonLa/April-Unnamed-Tree
+
+GitHub 仓库名是发行名 `April-Unnamed-Tree`。本机文件夹仍是 `Sakura`（Launcher 列表用这个名字），不要为了跟 GitHub 改本地目录。
 
 根 `README.md`、标签 `v1.0.0`、Releases 双端包、About 简介与 Topics **已经落盘/已发布**。License 仍待填。不要建 Pages。
 
@@ -32,7 +34,7 @@
 
 ## 3. 玩家向：Release
 
-当前最新：https://github.com/ComeCatchMoonLa/Sakura/releases/tag/v1.0.0
+当前最新：https://github.com/ComeCatchMoonLa/April-Unnamed-Tree/releases/tag/v1.0.0
 
 以后每个小版本标签同样挂两文件（**不进 git**）：
 
@@ -88,3 +90,4 @@ ComeCatchMoonLa <comecatchmoonla@example.com>
 | v1.2 | Win Release 改为 `.7z`；Android 用 Universal APK；截图定为标题+对白。 |
 | v1.3 | 改为已发布状态：指向真 README / v1.0.0 Release；不再当初始化模板。 |
 | v1.4 | README/Ver 必须嵌展示截图；记下 Contributors 为空是 example.com 邮箱。 |
+| v1.5 | 仓库改名为 `April-Unnamed-Tree`；本机目录仍叫 `Sakura`。 |
