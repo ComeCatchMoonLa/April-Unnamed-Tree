@@ -1,8 +1,10 @@
 # 只读已显示对白与选择系统行。不可点行跳转。
+# _history 是开关（bool）；真正的条目在 _history_list。
 
 screen scr_log():
     modal True
     zorder 50
+    predict False
 
     add Solid("#FFFFFF")
 
@@ -11,7 +13,6 @@ screen scr_log():
         yalign 0.08
         spacing 16
         xsize 960
-        ysize 600
 
         text COPY_HUD_LOG:
             color "#000000"
@@ -20,14 +21,14 @@ screen scr_log():
             xalign 0.5
 
         viewport:
-            id "log_view"
+            xysize (960, 480)
             mousewheel True
             draggable True
-            yfill True
-            scrollbars "vertical"
+            yinitial 1.0
 
             vbox:
                 spacing 12
+                xsize 920
                 for h in _history_list:
                     vbox:
                         spacing 2

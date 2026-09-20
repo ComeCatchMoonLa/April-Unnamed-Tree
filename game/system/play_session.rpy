@@ -148,11 +148,11 @@ init python:
 
         def run_choice_fake(self, left, right):
             picked = renpy.call_screen("scr_choice_fake", left, right)
-            self._log_system_line(COPY_LOG_CHOICE_PREFIX + picked)
+            self._log_choice_options(left, right, picked)
 
         def run_choice_display(self, left, right):
             renpy.call_screen("scr_choice_display", left, right)
-            self._log_system_line(COPY_LOG_CHOICE_UNSELECTED)
+            self._log_choice_options(left, right, None)
 
         def run_choice_true(self):
             picked = renpy.call_screen("scr_choice_true")
@@ -160,7 +160,11 @@ init python:
                 caption = COPY_CHOICE_TRUE_CONTINUE
             else:
                 caption = COPY_CHOICE_TRUE_END
-            self._log_system_line(COPY_LOG_CHOICE_PREFIX + caption)
+            self._log_choice_options(
+                COPY_CHOICE_TRUE_CONTINUE,
+                COPY_CHOICE_TRUE_END,
+                caption,
+            )
             ctx = self._context
             if ctx is None or ctx.play_mode != "play":
                 return
@@ -246,6 +250,19 @@ init python:
 
         def _log_system_line(self, what):
             narrator.add_history("adv", None, what)
+
+        def _log_choice_options(self, left, right, picked):
+            if picked is None:
+                header = COPY_LOG_CHOICE_UNSELECTED
+            else:
+                header = COPY_LOG_CHOICE_PREFIX
+            lines = [header]
+            for caption in (left, right):
+                if picked is not None and caption == picked:
+                    lines.append("{color=#008000}    %s{/color}" % caption)
+                else:
+                    lines.append("    %s" % caption)
+            self._log_system_line("\n".join(lines))
 
         def _end_to_after_slot(self):
             first = NodeCatalog.first_line_id("after_start")

@@ -7,6 +7,9 @@ define COPY_CHOICE_CH2_RIGHT = "尊重规则，别去打扰"
 define COPY_CHOICE_TRUE_CONTINUE = "继续"
 define COPY_CHOICE_TRUE_END = "结束"
 
+define CHAR_YAYOI = Character("弥生")
+define CHAR_ME = Character("我")
+
 define COPY_LOG_CHOICE_PREFIX = "选择："
 define COPY_LOG_CHOICE_UNSELECTED = "选项（未选择）"
 
