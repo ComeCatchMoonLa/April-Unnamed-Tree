@@ -11,6 +11,16 @@ init python:
         "ch2_room": "bg_room_night",
         "ch2_choice": "bg_room_night",
         "ch2_fullbloom": "cg_fullbloom_backlight",
+        "ch3_ledger": "white",
+        "ch3_omote1": "bg_slope_to_hospital",
+        "ch3_ura1": "white",
+        "ch3_omote2": "cg_fullbloom_backlight",
+        "ch3_ura2": "white",
+        "ch3_omote3": "bg_hospital_surgery",
+        "ch3_black": "bg_black",
+        "ch3_ura3": "bg_sakura_yard",
+        "ch3_omote5": "bg_ninth_spring",
+        "ch3_staff": "white",
     }
 
     def script_say(line_id, who, what):
@@ -39,7 +49,7 @@ init python:
             renpy.jump(extra)
             return
         ctx = PlaySession.current()
-        # 尚无全文的节点：回放用占位句走到章末。
+        # after / inner 尚无全文：回放用占位句。ch1–ch3 已写的节点不得走这里。
         if ctx is not None and ctx.play_mode == "replay" and seq == "0001":
             renpy.jump("replay_stub")
             return
@@ -50,21 +60,6 @@ init python:
         PlaySession._clear()
         renpy.jump("boot")
 
-
-label ch3_staff:
-    $ PlaySession.on_node_reached("ch3_staff")
-    $ PlaySession.on_line_shown("ch3_staff:0001")
-    "占位：制作名单"
-    $ PlaySession.run_choice_true()
-    $ PlaySession.advance_replay()
-    $ PlaySession.commit_leave()
-
-label ch3_ledger:
-    $ PlaySession.on_node_reached("ch3_ledger")
-    $ PlaySession.on_line_shown("ch3_ledger:0001")
-    "占位：ch3_ledger:0001"
-    $ PlaySession.advance_replay()
-    $ PlaySession.commit_leave()
 
 label after_start:
     $ PlaySession.on_node_reached("after_start")

@@ -119,6 +119,7 @@ init python:
                     chapter_id=node.chapter_id,
                     node_id=node_id,
                     line_id=line_id,
+                    style=self._style_for_node(node),
                     route=route or ctx.route,
                 )
             self._bind(ctx)
@@ -169,6 +170,11 @@ init python:
                 COPY_CHOICE_TRUE_END,
                 caption,
             )
+            return picked
+
+        def complete_true_choice(self, picked):
+            if picked is None:
+                picked = self.run_choice_true()
             ctx = self._context
             if ctx is None or ctx.play_mode != "play":
                 return

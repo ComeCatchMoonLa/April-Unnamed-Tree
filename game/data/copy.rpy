@@ -4,6 +4,7 @@ define COPY_CHOICE_CH1_LEFT = "那你现在，看的是花吗？"
 define COPY_CHOICE_CH1_RIGHT = "那你打算，看到什么时候？"
 define COPY_CHOICE_CH2_LEFT = "等花开，去接她"
 define COPY_CHOICE_CH2_RIGHT = "尊重规则，别去打扰"
+define COPY_CHOICE_CH3_URA3 = "……"
 define COPY_CHOICE_TRUE_CONTINUE = "继续"
 define COPY_CHOICE_TRUE_END = "结束"
 
