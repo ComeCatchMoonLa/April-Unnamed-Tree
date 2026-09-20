@@ -3,17 +3,17 @@
 screen say(who, what):
     window:
         id "window"
-        background Solid("#ffffff")
+        background Solid(dialogue_window_bg)
         xfill True
         yalign 1.0
         ysize 180
         padding (40, 20, 40, 20)
 
         if who is not None:
-            text who id "who" color "#000000" size 28 font gui.text_font
-            text what id "what" color "#000000" size 22 ypos 40 font gui.text_font
+            text who id "who" color dialogue_text_color size 28 font gui.text_font
+            text what id "what" color dialogue_text_color size 22 ypos 40 font gui.text_font
         else:
-            text what id "what" color "#000000" size 22 font gui.text_font
+            text what id "what" color dialogue_text_color size 22 font gui.text_font
 
 screen choice(items):
     vbox:

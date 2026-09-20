@@ -1,5 +1,5 @@
 # 关闭默认回滚 / Skip / Hide / 退出确认 / 存档柜；打开引擎 AFM。
-# HUD 的 toggle_afm 留给后续版本，此处只设引擎默认。
+# toggle_afm 在 play_session；关窗写槽走 quit_callbacks。
 
 default _confirm_quit = False
 default preferences.afm_enable = True
