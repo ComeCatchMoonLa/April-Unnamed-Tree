@@ -3,7 +3,7 @@
 - 目的：给出播放会话、Auto、选择肢、screen 与 label 契约。
 - 读者：system、UI、脚本、评审、AI 会话。
 - 关系：数据层见 [接口设计-数据与存档](接口设计-数据与存档.md)；行为见 [游戏设计-存档与播放](游戏设计-存档与播放.md) 与 [游戏设计-界面与操作](游戏设计-界面与操作.md)。
-- 版本：v1.5
+- 版本：v1.6
 - 日期：2026-09-20
 
 参数不得超过 5 个。会话状态放在 `PlayContext`，不要把上下文拆成一长串实参。
@@ -20,7 +20,7 @@ PlayContext
   route: string
 ```
 
-同时只有一个活动上下文。回标题时清会话，但 `play` 离开前先 `commit_leave`。
+同时只有一个活动上下文。离开游玩或回放时清会话，但 `play` 离开前先 `commit_leave`。回放离开回鉴赏，不经标题点「鉴赏」。
 
 ## 2. PlaySession
 
@@ -34,7 +34,7 @@ PlayContext
 | `on_node_reached` | `node_id` | `None` | play：unlock 节点 + 写槽；replay：忽略写槽 |
 | `on_cg_shown` | `cg_id` | `None` | play：unlock CG；replay：忽略 |
 | `on_line_shown` | `line_id` | `None` | 更新上下文当前句；不写槽 |
-| `commit_leave` | 无 | `None` | play 写当前句后可回标题；replay 不写 |
+| `commit_leave` | 无 | `None` | play 写当前句后回标题；replay 不写，回鉴赏 |
 | `apply_style` | `style` | `None` | 改对话框样式 |
 | `sync_inner_dim` | 无 | `None` | `chapter_id==inner` 则开暗层，否则关 |
 | `current` | 无 | `PlayContext \| None` | 无 |
@@ -130,7 +130,7 @@ HUD 与快捷键必须调用同一 PlaySession 函数（Return/Save）以及同�
 | `L` | 打开/关 Log（仅游戏场景） |
 | `S` | play 则 `SaveStore.write_line`；replay 忽略 |
 | `F1` | 开关设置 |
-| `Esc` | 游戏场景 = Return；标题忽略；设置打开时关设置 |
+| `Esc` | 游戏场景 = Return（play 回标题，replay 回鉴赏）；标题忽略；设置打开时关设置 |
 | `F` | 切换窗口/全屏（仅 Windows；与设置窗口项同一 preference） |
 | Android 返回 | 同当前场景的 Return / 关设置 |
 
@@ -139,7 +139,7 @@ HUD 与快捷键必须调用同一 PlaySession 函数（Return/Save）以及同�
 实现本接口算完成，当且仅当：
 
 - 无槽「新的游戏」/ 有槽「继续」/ 解锁后「后日谈」+ 可选「里」/ 鉴赏回放 / 真选项两条路径可按契约走通
-- replay 下 Save、节点到达、Return、退出都不写槽
+- replay 下 Save、节点到达、Return、退出都不写槽；Return 与章末回鉴赏
 - Auto 为引擎默认 AFM（`toggle_afm` + preference）
 - 所有 screen 名称与上表一致（允许加前缀但评审文档须同步；本版本就用上表名）
 
@@ -153,3 +153,4 @@ HUD 与快捷键必须调用同一 PlaySession 函数（Return/Save）以及同�
 | v1.3 | 主进度三态；`enter_after` / `enter_inner` 按槽续玩。 |
 | v1.4 | 设置三项；速度带动 CPS；快捷键页两列；保留 `F`。 |
 | v1.5 | 快捷键页不要求表格对齐。 |
+| v1.6 | `commit_leave`：replay 回鉴赏；play 仍回标题。 |
