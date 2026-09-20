@@ -30,7 +30,8 @@ init 1 python:
     config.keymap["load"] = []
     config.keymap["quicksave"] = []
     config.keymap["quickload"] = []
-    config.keymap["game_menu"] = []
+    # 默认 K_AC_BACK 在 rollback 上；rollback 已清空。Android 返回走 game_menu，与 HUD Return 同一入口。
+    config.keymap["game_menu"] = ["K_AC_BACK"]
     config.keymap["self_voicing"] = []
     config.keymap["clipboard_voicing"] = []
     # F1/S 改走 hud 里的 sakura_*，这里先摘掉默认帮助和截图。

@@ -114,3 +114,4 @@ screen scr_settings():
             padding (8, 8)
 
     key "K_ESCAPE" action Function(toggle_settings)
+    key "game_menu" action Function(toggle_settings)

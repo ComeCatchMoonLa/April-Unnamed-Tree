@@ -54,4 +54,5 @@ screen scr_log():
             padding (8, 4)
 
     key "K_ESCAPE" action Function(toggle_log)
+    key "game_menu" action Function(toggle_log)
     key "l" action Function(toggle_log)

@@ -73,11 +73,19 @@ screen scr_hud():
         or renpy.get_screen("scr_choice_display")
         or renpy.get_screen("scr_choice_true")
     )
+    $ menu_open = (
+        renpy.get_screen("scr_settings")
+        or renpy.get_screen("scr_log")
+        or renpy.get_screen("scr_gallery")
+        or renpy.get_screen("scr_gallery_cg")
+        or renpy.get_screen("scr_staff_menu")
+    )
 
     if ctx is not None:
-        if not overlay_open:
+        if not menu_open:
             key "K_ESCAPE" action Function(PlaySession.commit_leave)
             key "game_menu" action Function(PlaySession.commit_leave)
+        if not overlay_open:
             key "a" action Function(toggle_afm)
             key "l" action Function(toggle_log)
 

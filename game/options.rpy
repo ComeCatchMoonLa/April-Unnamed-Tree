@@ -2,10 +2,18 @@
 
 define config.name = _("四月，未命名的树")
 define gui.show_name = True
-define config.version = "0.9.0"
+define config.version = "1.0.0"
 define build.name = "AprilUnnamedTree"
 define config.save_directory = "AprilUnnamedTree"
 define config.history_length = 250
+
+# Docs 不进玩家包；不声明 web 发行包。Launcher 仍有「网页」按钮，不要点。
+init python:
+    build.classify("Docs/**", None)
+    build.classify(".cursor/**", None)
+
+init 999 python:
+    build.packages = [p for p in build.packages if p.get("name") != "web"]
 
 # 本版本静音；不要因缺音频文件报错。
 define config.has_sound = False

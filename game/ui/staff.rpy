@@ -20,3 +20,4 @@ screen scr_staff_menu():
                     xalign 0.5
 
     key "K_ESCAPE" action Hide("scr_staff_menu")
+    key "game_menu" action Hide("scr_staff_menu")

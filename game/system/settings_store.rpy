@@ -80,6 +80,7 @@ init python:
 
         def apply_display(self):
             if self.is_android():
+                preferences.fullscreen = True
                 return
             rec = self.load()
             preferences.fullscreen = rec.window_mode == "fullscreen"
@@ -111,3 +112,5 @@ default ui_text_size = 18
 
 init 2 python:
     SettingsStore.apply_current()
+    if SettingsStore.is_android():
+        SettingsStore.apply_display()

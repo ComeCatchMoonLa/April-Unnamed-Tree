@@ -116,6 +116,7 @@ screen scr_gallery():
             padding (8, 8)
 
     key "K_ESCAPE" action [Hide("scr_gallery_cg"), Hide("scr_gallery")]
+    key "game_menu" action [Hide("scr_gallery_cg"), Hide("scr_gallery")]
 
 
 screen scr_gallery_cg(cg_id):
@@ -141,3 +142,4 @@ screen scr_gallery_cg(cg_id):
             yalign 0.9
 
     key "K_ESCAPE" action Hide("scr_gallery_cg")
+    key "game_menu" action Hide("scr_gallery_cg")
