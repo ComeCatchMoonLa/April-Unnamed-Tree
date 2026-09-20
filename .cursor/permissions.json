@@ -1,0 +1,9 @@
+{
+  "autoRun": {
+    "block_instructions": [
+      "拦截用 python 或 py 套一层，对当前 Sakura 工作区外做改写或删除。",
+      "拦截对 D:\\Project\\Renpy_Projects 下、且不在当前 Sakura 工作区内的路径做清理、改写或删除。",
+      "拦截把 Python 依赖安装到系统解释器或用户全局环境。"
+    ]
+  }
+}
