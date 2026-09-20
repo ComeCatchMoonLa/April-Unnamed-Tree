@@ -1,4 +1,4 @@
-# 三种选择肢各一个 screen。按钮一列居中；选择本身不是 line_id。
+# 三种选择肢各一个 screen。中章留屏是不能点的字，不是第四类选择肢。
 
 screen choice_entry(caption, btn_action, locked=False):
     textbutton caption:
@@ -56,3 +56,27 @@ screen scr_choice_true():
         xmaximum 720
         use choice_entry(COPY_CHOICE_TRUE_CONTINUE, Return("continue"))
         use choice_entry(COPY_CHOICE_TRUE_END, Return("end"))
+
+
+screen scr_choice_hold(left, right):
+    # 低于 overlay 上的 HUD；对白在画面下沿，两行居中不挡。
+    zorder 5
+    modal False
+
+    vbox:
+        xalign 0.5
+        yalign 0.5
+        spacing 16
+        xmaximum 720
+        text left:
+            size ui_text_size
+            color "#000000"
+            font sakura_font
+            text_align 0.5
+            xalign 0.5
+        text right:
+            size ui_text_size
+            color "#000000"
+            font sakura_font
+            text_align 0.5
+            xalign 0.5

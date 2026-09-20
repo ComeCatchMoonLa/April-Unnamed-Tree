@@ -203,6 +203,16 @@ init python:
             renpy.call_screen("scr_choice_display", left, right)
             self._log_choice_options(left, right, None)
 
+        def show_choice_hold(self, left, right):
+            already = renpy.get_screen("scr_choice_hold")
+            renpy.show_screen("scr_choice_hold", left, right)
+            if not already:
+                self._log_choice_options(left, right, None)
+
+        def hide_choice_hold(self):
+            if renpy.get_screen("scr_choice_hold"):
+                renpy.hide_screen("scr_choice_hold")
+
         def run_choice_true(self):
             picked = renpy.call_screen("scr_choice_true")
             if picked == "continue":
@@ -304,6 +314,7 @@ init python:
             self.sync_inner_dim()
 
         def _clear(self):
+            self.hide_choice_hold()
             self._context = None
             self.apply_style("omote")
             self.sync_inner_dim()

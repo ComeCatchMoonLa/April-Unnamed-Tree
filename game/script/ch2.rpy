@@ -82,16 +82,21 @@ label ch2_choice:
     $ script_restore_visuals("ch2_choice")
 label ch2_choice_0001:
     $ script_say("ch2_choice:0001", None, "我坐起来。窗外没有月亮。樱花，就这几天。")
-    $ PlaySession.run_choice_display(COPY_CHOICE_CH2_LEFT, COPY_CHOICE_CH2_RIGHT)
+    $ PlaySession.show_choice_hold(COPY_CHOICE_CH2_LEFT, COPY_CHOICE_CH2_RIGHT)
 label ch2_choice_0002:
+    $ PlaySession.show_choice_hold(COPY_CHOICE_CH2_LEFT, COPY_CHOICE_CH2_RIGHT)
     $ script_say("ch2_choice:0002", None, "（两个按钮都亮着。我盯着看了很久，忽然想笑。")
 label ch2_choice_0003:
+    $ PlaySession.show_choice_hold(COPY_CHOICE_CH2_LEFT, COPY_CHOICE_CH2_RIGHT)
     $ script_say("ch2_choice:0003", None, "这个游戏到今天还在维持它体面的假象——好像真的有得选。")
 label ch2_choice_0004:
+    $ PlaySession.show_choice_hold(COPY_CHOICE_CH2_LEFT, COPY_CHOICE_CH2_RIGHT)
     $ script_say("ch2_choice:0004", None, "可是从她把“盛开”交给我保管那天起，")
 label ch2_choice_0005:
+    $ PlaySession.show_choice_hold(COPY_CHOICE_CH2_LEFT, COPY_CHOICE_CH2_RIGHT)
     $ script_say("ch2_choice:0005", None, "剧本就已经换了作者。）")
 label ch2_choice_0006:
+    $ PlaySession.hide_choice_hold()
     $ script_say("ch2_choice:0006", None, "（我哪个都没按。我按灭屏幕，在黑暗里听见了站起来的声音。）")
     jump ch2_fullbloom
 
