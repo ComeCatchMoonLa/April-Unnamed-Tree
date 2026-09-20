@@ -6,6 +6,11 @@ init python:
         "ch1_cg_backlight": "cg_yayoi_backlight",
         "ch1_choice": "cg_yayoi_backlight",
         "ch1_cg_blizzard": "cg_sakura_blizzard",
+        "ch2_start": "bg_sakura_yard",
+        "ch2_hospital": "bg_hospital_403",
+        "ch2_room": "bg_room_night",
+        "ch2_choice": "bg_room_night",
+        "ch2_fullbloom": "cg_fullbloom_backlight",
     }
 
     def script_say(line_id, who, what):
@@ -46,31 +51,11 @@ init python:
         renpy.jump("boot")
 
 
-label ch2_choice:
-    $ PlaySession.on_node_reached("ch2_choice")
-    $ PlaySession.on_line_shown("ch2_choice:0001")
-    "占位：中章选择肢前"
-    $ PlaySession.run_choice_display(COPY_CHOICE_CH2_LEFT, COPY_CHOICE_CH2_RIGHT)
-    jump ch2_choice_0002
-
-label ch2_choice_0002:
-    $ PlaySession.on_line_shown("ch2_choice:0002")
-    "占位：中章选择肢后"
-    $ PlaySession.advance_replay()
-    jump ch3_staff
-
 label ch3_staff:
     $ PlaySession.on_node_reached("ch3_staff")
     $ PlaySession.on_line_shown("ch3_staff:0001")
     "占位：制作名单"
     $ PlaySession.run_choice_true()
-    $ PlaySession.advance_replay()
-    $ PlaySession.commit_leave()
-
-label ch2_start:
-    $ PlaySession.on_node_reached("ch2_start")
-    $ PlaySession.on_line_shown("ch2_start:0001")
-    "占位：ch2_start:0001"
     $ PlaySession.advance_replay()
     $ PlaySession.commit_leave()
 
