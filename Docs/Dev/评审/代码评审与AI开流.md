@@ -3,8 +3,8 @@
 - 目的：让 AI 与人工评审按同一套禁止项和会话切分工作，稳定产出。
 - 读者：实现者、代码评审、AI 会话。
 - 关系：契约见接口设计；风格见 [编码规范](../实现/编码规范.md)。`.cursor/rules` **本轮不落盘**，实现阶段只引用本文与 README，不复制长文。
-- 版本：v1.1
-- 日期：2026-09-15
+- 版本：v1.2
+- 日期：2026-09-20
 
 ## 1. 开流顺序
 
@@ -25,7 +25,7 @@
 3. `SaveStore` + `UnlockStore` + `SettingsStore`
 4. `PlaySession` + 引擎 AFM（`toggle_afm`）
 5. 标题 / HUD / 设置 / Log
-6. 选择肢三 screen
+6. 选择肢三入口 + 中章 `scr_choice_hold`
 7. 鉴赏
 8. 按章脚本（ch1 → ch2 → ch3 → after → inner）
 9. Win 包；再 Android 包
@@ -87,3 +87,4 @@
 |---|---|
 | v1.0 | 会话切分、禁止项、评审清单；rules 留到实现阶段。 |
 | v1.1 | 会话改为 PlaySession+引擎 AFM；禁止自管 Auto。 |
+| v1.2 | 切分含中章 `scr_choice_hold`。 |

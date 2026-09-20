@@ -3,7 +3,7 @@
 - 目的：给出播放会话、Auto、选择肢、screen 与 label 契约。
 - 读者：system、UI、脚本、评审、AI 会话。
 - 关系：数据层见 [接口设计-数据与存档](接口设计-数据与存档.md)；行为见 [游戏设计-存档与播放](游戏设计-存档与播放.md) 与 [游戏设计-界面与操作](游戏设计-界面与操作.md)。
-- 版本：v1.8
+- 版本：v1.9
 - 日期：2026-09-20
 
 参数不得超过 5 个。会话状态放在 `PlayContext`，不要把上下文拆成一长串实参。
@@ -38,6 +38,8 @@ PlayContext
 | `commit_leave` | 无 | `None` | play 写当前句后回标题；replay 不写，回鉴赏 |
 | `run_choice_true` | 无 | `continue` / `end` | 出屏与 Log；不解锁、不跳转 |
 | `complete_true_choice` | `picked` | `None` | 见下方真选项规则 |
+| `show_choice_hold` | `left`, `right` | `None` | 中章留屏外观；Log「选项（未选择）」；不挡点击 |
+| `hide_choice_hold` | 无 | `None` | 收掉留屏；离开会话必须调用 |
 | `apply_style` | `style` | `None` | 改对话框样式 |
 | `sync_inner_dim` | 无 | `None` | `chapter_id==inner` 则开暗层，否则关 |
 | `current` | 无 | `PlayContext \| None` | 无 |
@@ -57,6 +59,10 @@ PlayContext
 
 后日谈章末：`unlock_inner`。
 
+中章：`ch2_choice:0001` 之后 `show_choice_hold`；`0002`–`0005` 的句 label 须保证留屏已亮；`0006` 先 `hide_choice_hold` 再播。Log 只在第一次亮出时记。`commit_leave` 与清会话必须 `hide_choice_hold`。
+
+里·三：`run_choice_display`，不要 `show_choice_hold`。
+
 ## 3. Auto（引擎 AFM）
 
 不实现 `AutoController`。HUD 与快捷键共用下面一个入口：
@@ -72,14 +78,16 @@ PlayContext
 
 ## 4. 选择肢入口
 
-三种独立函数，对应三个 screen。不要合并成带 type 字符串的万能函数（若必须共用内部 helper，对外仍三入口）。
+三种独立函数，对应三个选择肢 screen。不要合并成带 type 字符串的万能函数（若必须共用内部 helper，对外仍三入口）。中章留屏不是第四类选择肢，另用 `show_choice_hold` / `hide_choice_hold`，**不要**改 `run_choice_display` 来留屏。
 
 | 函数 | 参数 | 行为 |
 |---|---|---|
 | `run_choice_fake` | `left: string`, `right: string` | 两可点按钮；点任一继续；Log「选择：文案」；无分支变量 |
-| `run_choice_display` | `left: string`, `right: string` | 不可点；空白/对话框点击关闭；Log「选项（未选择）」 |
+| `run_choice_display` | `left: string`, `right: string` | 不可点；空白/对话框点击关闭；Log「选项（未选择）」。里·三用此入口 |
 | `run_choice_true` | 无 | 固定「继续」「结束」；返回 picked；见 PlaySession 规则 |
 | `complete_true_choice` | `picked` | play：解锁并写 after 首句；继续回标题，结束退出。replay：无副作用 |
+| `show_choice_hold` | `left: string`, `right: string` | 亮出两行 `text`（无底、无悬停、不吃点击）；已亮则保持。中章用 |
+| `hide_choice_hold` | 无 | 收掉留屏。`commit_leave` / 清会话必须收 |
 
 文案常量（首章/中章）放 data 或脚本字面量均可，但不得在 UI 里改字。
 
@@ -113,8 +121,9 @@ PlayContext
 | `scr_gallery_cg` | CG 全屏 | 白图+名称；点击回列表 |
 | `scr_staff_menu` | 主界面制作名单 | 固定文案；点击回标题 |
 | `scr_choice_fake` | 首章 | 见上 |
-| `scr_choice_display` | 中章 | 见上 |
-| `scr_choice_true` | 尾章 | 见上 |
+| `scr_choice_display` | 里·三等 modal 展示肢 | 不可点；空白关掉；不要改成留屏 |
+| `scr_choice_true` | 尾章真选项 | 见上 |
+| `scr_choice_hold` | 中章留屏 | 两行 `text`；非 modal；zorder 低于 HUD 与对白；不列入 HUD 的 overlay 遮挡；点在字上穿透到翻句 |
 | `scr_inner_dim` | inner 时 | 全屏 60% 黑；不挡点击到下层对话 |
 
 HUD 与快捷键必须调用同一 PlaySession 函数（Return/Save）以及同一 `toggle_afm`，禁止各写一套。
@@ -148,8 +157,9 @@ HUD 与快捷键必须调用同一 PlaySession 函数（Return/Save）以及同�
 
 - 无槽「新的游戏」/ 有槽「继续」/ 解锁后「后日谈」+ 可选「里」/ 鉴赏回放 / 真选项两条路径可按契约走通
 - replay 下 Save、节点到达、Return、退出都不写槽；Return 与连续已解锁末句回鉴赏；不得越过未解锁节点
-- Auto 为引擎默认 AFM（`toggle_afm` + preference）
+- Auto 为引擎默认 AFM（`toggle_afm` + preference）；中章留屏不暂停 Auto
 - 所有 screen 名称与上表一致（允许加前缀但评审文档须同步；本版本就用上表名）
+- `ch3_black` 走 `ura`；中章用 hold、里·三用 display
 
 ## 10. 修订记录
 
@@ -164,3 +174,4 @@ HUD 与快捷键必须调用同一 PlaySession 函数（Return/Save）以及同�
 | v1.6 | `commit_leave`：replay 回鉴赏；play 仍回标题。 |
 | v1.7 | `advance_replay`：下一节点未解锁则回鉴赏；章内 jump 同样检查。 |
 | v1.8 | 真选项：`run_choice_true` 只出屏；`complete_true_choice` 在散场后分回标题 / 退出。 |
+| v1.9 | 中章 `show_choice_hold` / `scr_choice_hold`；`run_choice_display` 留给里·三。 |
