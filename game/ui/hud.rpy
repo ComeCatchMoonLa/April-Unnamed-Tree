@@ -68,6 +68,9 @@ screen scr_hud():
         or renpy.get_screen("scr_log")
         or renpy.get_screen("scr_gallery")
         or renpy.get_screen("scr_staff_menu")
+        or renpy.get_screen("scr_choice_fake")
+        or renpy.get_screen("scr_choice_display")
+        or renpy.get_screen("scr_choice_true")
     )
 
     if ctx is not None:

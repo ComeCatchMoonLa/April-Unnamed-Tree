@@ -30,6 +30,37 @@ label ch1_start:
 label ch1_start_0002:
     $ PlaySession.on_line_shown("ch1_start:0002")
     "占位：ch1_start:0002"
+    jump ch1_choice
+
+label ch1_choice:
+    $ PlaySession.on_node_reached("ch1_choice")
+    $ PlaySession.on_line_shown("ch1_choice:0001")
+    "占位：首章选择肢前"
+    $ PlaySession.run_choice_fake(COPY_CHOICE_CH1_LEFT, COPY_CHOICE_CH1_RIGHT)
+    jump ch1_choice_0002
+
+label ch1_choice_0002:
+    $ PlaySession.on_line_shown("ch1_choice:0002")
+    "占位：首章选择肢后"
+    jump ch2_choice
+
+label ch2_choice:
+    $ PlaySession.on_node_reached("ch2_choice")
+    $ PlaySession.on_line_shown("ch2_choice:0001")
+    "占位：中章选择肢前"
+    $ PlaySession.run_choice_display(COPY_CHOICE_CH2_LEFT, COPY_CHOICE_CH2_RIGHT)
+    jump ch2_choice_0002
+
+label ch2_choice_0002:
+    $ PlaySession.on_line_shown("ch2_choice:0002")
+    "占位：中章选择肢后"
+    jump ch3_staff
+
+label ch3_staff:
+    $ PlaySession.on_node_reached("ch3_staff")
+    $ PlaySession.on_line_shown("ch3_staff:0001")
+    "占位：制作名单"
+    $ PlaySession.run_choice_true()
     $ PlaySession.commit_leave()
 
 label ch2_start:

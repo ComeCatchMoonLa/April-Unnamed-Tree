@@ -136,6 +136,30 @@ init python:
                 route=route or ctx.route,
             )
 
+        def run_choice_fake(self, left, right):
+            picked = renpy.call_screen("scr_choice_fake", left, right)
+            self._log_system_line(COPY_LOG_CHOICE_PREFIX + picked)
+
+        def run_choice_display(self, left, right):
+            renpy.call_screen("scr_choice_display", left, right)
+            self._log_system_line(COPY_LOG_CHOICE_UNSELECTED)
+
+        def run_choice_true(self):
+            picked = renpy.call_screen("scr_choice_true")
+            if picked == "continue":
+                caption = COPY_CHOICE_TRUE_CONTINUE
+            else:
+                caption = COPY_CHOICE_TRUE_END
+            self._log_system_line(COPY_LOG_CHOICE_PREFIX + caption)
+            ctx = self._context
+            if ctx is None or ctx.play_mode != "play":
+                return
+            UnlockStore.unlock_after()
+            if picked == "continue":
+                self._enter_play_node("after_start")
+                return
+            self._end_to_after_slot()
+
         def commit_leave(self):
             self.flush_leave()
             renpy.jump("boot")
@@ -209,6 +233,29 @@ init python:
             if node.node_id.startswith("ch3_ura"):
                 return "ura"
             return "omote"
+
+        def _log_system_line(self, what):
+            narrator.add_history("adv", None, what)
+
+        def _end_to_after_slot(self):
+            first = NodeCatalog.first_line_id("after_start")
+            node = NodeCatalog.get_node("after_start")
+            if first is None or node is None:
+                self.commit_leave()
+                return
+            route = NodeCatalog.route_of_chapter(node.chapter_id)
+            ctx = PlayContext(
+                "play",
+                node.chapter_id,
+                node.node_id,
+                first,
+                "omote",
+                route,
+            )
+            self._bind(ctx)
+            SaveStore.write_line(SLOT_MAIN, self.current_line_ref())
+            self._clear()
+            renpy.jump("boot")
 
     PlaySession = _PlaySession()
 
