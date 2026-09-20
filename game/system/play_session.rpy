@@ -86,7 +86,7 @@ init python:
             if ctx is None or ctx.play_mode != "replay":
                 return False
             next_id = NodeCatalog.next_node_in_chapter(ctx.node_id)
-            if next_id is None:
+            if next_id is None or not UnlockStore.is_node_unlocked(next_id):
                 self.commit_leave()
                 return True
             return self._enter_mode_node("replay", next_id)
@@ -95,9 +95,13 @@ init python:
             node = NodeCatalog.get_node(node_id)
             if node is None:
                 return
+            ctx = self._context
+            if ctx is not None and ctx.play_mode == "replay":
+                if not UnlockStore.is_node_unlocked(node_id):
+                    self.commit_leave()
+                    return
             first = NodeCatalog.first_line_id(node_id)
             route = NodeCatalog.route_of_chapter(node.chapter_id)
-            ctx = self._context
             if ctx is None:
                 ctx = PlayContext(
                     "play",
