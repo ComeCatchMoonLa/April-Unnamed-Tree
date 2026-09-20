@@ -63,6 +63,9 @@ init python:
             data["inner_unlocked"] = True
             self._save_raw(data)
 
+        def clear_all(self):
+            self._save_raw(self._empty())
+
         def _load_raw(self):
             data = persistent.sakura_unlocks
             if not isinstance(data, dict):
