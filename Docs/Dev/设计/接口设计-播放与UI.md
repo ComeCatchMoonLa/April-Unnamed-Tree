@@ -3,8 +3,8 @@
 - 目的：给出播放会话、Auto、选择肢、screen 与 label 契约。
 - 读者：system、UI、脚本、评审、AI 会话。
 - 关系：数据层见 [接口设计-数据与存档](接口设计-数据与存档.md)；行为见 [游戏设计-存档与播放](游戏设计-存档与播放.md) 与 [游戏设计-界面与操作](游戏设计-界面与操作.md)。
-- 版本：v1.1
-- 日期：2026-09-15
+- 版本：v1.3
+- 日期：2026-09-20
 
 参数不得超过 5 个。会话状态放在 `PlayContext`，不要把上下文拆成一长串实参。
 
@@ -26,10 +26,10 @@ PlayContext
 
 | 函数 | 参数 | 返回 | 副作用 |
 |---|---|---|---|
-| `start_new_game` | 无 | `None` | `play`；覆盖槽为 `ch1_start` 首句；跳转该句 |
-| `continue_game` | 无 | `bool` | 无槽返回 False；有槽则按续玩规则跳转 |
-| `enter_after` | 无 | `bool` | 未解锁 False；否则 `play` 进 `after_start` |
-| `enter_inner` | 无 | `bool` | 未解锁 False；否则 `play` 进 `inner_start` |
+| `start_new_game` | 无 | `None` | `play`；把槽写成 `ch1_start` 首句；跳转该句 |
+| `continue_game` | 无 | `bool` | 无槽 False；有槽从 `line_id` 句首跳（标题仅在未解锁后日谈时调用） |
+| `enter_after` | 无 | `bool` | 未解锁 False；槽在 after 则续该句，否则进 `after_start` |
+| `enter_inner` | 无 | `bool` | 未解锁 False；槽在 inner 则续该句，否则进 `inner_start` |
 | `enter_replay` | `node_id` | `bool` | 未解锁 False；`replay`；不写槽 |
 | `on_node_reached` | `node_id` | `None` | play：unlock 节点 + 写槽；replay：忽略写槽 |
 | `on_cg_shown` | `cg_id` | `None` | play：unlock CG；replay：忽略 |
@@ -40,9 +40,9 @@ PlayContext
 | `current` | 无 | `PlayContext \| None` | 无 |
 | `current_line_ref` | 无 | `LineRef \| None` | 供 SaveStore |
 
-`continue_game` 必须实现存档与播放文 §3.4 的状态表，而不是无脑 `load_slot`。无槽或槽损坏返回 False。
+`continue_game`：无槽或槽损坏返回 False。标题只在有槽且尚未 `after_unlocked` 时调用。真选项之后的 after/inner 续玩见存档与播放文 §3.4，走 `enter_after` / `enter_inner`。
 
-`start_new_game`：即使已有槽也立刻覆盖，无确认。
+`start_new_game`：把槽写成 `ch1_start` 首句。玩家标题仅在无槽时调用；有槽不得出现「新的游戏」。调试探针仍可调用（会覆盖槽）。
 
 真选项「结束」：`unlock_after`；`write_line` 为 after 首句；回标题。不要进入 after 播放。
 
@@ -97,7 +97,7 @@ PlayContext
 
 | screen | 何时 | 必须提供的行为 |
 |---|---|---|
-| `scr_title` | 标题 | 八按钮规则；无槽时继续禁用；Esc 不退出 |
+| `scr_title` | 标题 | 主进度一键三态；里解锁后紧插其下；Esc 不退出 |
 | `scr_hud` | 游玩/回放 overlay | 五键；replay 时 Save 禁用 |
 | `scr_settings` | 模态 | 选项四项 + 快捷键只读页；F1 关闭自己 |
 | `scr_log` | 模态 | 只读；不可跳转 |
@@ -137,7 +137,7 @@ HUD 与快捷键必须调用同一 PlaySession 函数（Return/Save）以及同�
 
 实现本接口算完成，当且仅当：
 
-- 新的游戏 / 继续 / 鉴赏回放 / 真选项两条路径可按契约走通
+- 无槽「新的游戏」/ 有槽「继续」/ 解锁后「后日谈」+ 可选「里」/ 鉴赏回放 / 真选项两条路径可按契约走通
 - replay 下 Save、节点到达、Return、退出都不写槽
 - Auto 为引擎默认 AFM（`toggle_afm` + preference）
 - 所有 screen 名称与上表一致（允许加前缀但评审文档须同步；本版本就用上表名）
@@ -148,3 +148,5 @@ HUD 与快捷键必须调用同一 PlaySession 函数（Return/Save）以及同�
 |---|---|
 | v1.0 | 给出 PlaySession、Auto、选择肢、screen/label 契约。 |
 | v1.1 | 删除 AutoController；改为 `toggle_afm` 与引擎 AFM。 |
+| v1.2 | 标题显隐；`start_new_game` 不再作为有槽玩家入口。 |
+| v1.3 | 主进度三态；`enter_after` / `enter_inner` 按槽续玩。 |
