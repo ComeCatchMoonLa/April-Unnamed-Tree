@@ -33,6 +33,10 @@ init 1 python:
     config.keymap["game_menu"] = []
     config.keymap["self_voicing"] = []
     config.keymap["clipboard_voicing"] = []
+    # F1/S 改走 hud 里的 sakura_*，这里先摘掉默认帮助和截图。
+    config.keymap["screenshot"] = []
+    config.keymap["help"] = []
+    config.help = None
 
     if "pad_rollback" in config.pad_bindings:
         config.pad_bindings["pad_rollback"] = []

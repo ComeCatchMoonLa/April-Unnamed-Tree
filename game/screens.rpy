@@ -45,7 +45,14 @@ screen nvl_dialogue(dialogue):
         text d.what color "#000000"
 
 screen notify(message):
-    text message color "#000000" xpos 20 ypos 20
+    zorder 100
+    text message:
+        color "#000000"
+        size 18
+        font gui.interface_text_font
+        xpos 20
+        ypos 20
+    timer 2.0 action Hide("notify")
 
 # 立刻进 start，避免停在默认主菜单/存档柜。
 screen main_menu():

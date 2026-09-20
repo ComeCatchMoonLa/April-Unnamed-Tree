@@ -19,6 +19,13 @@ define COPY_TITLE_STAFF = "制作名单"
 define COPY_TITLE_SETTINGS = "设置"
 define COPY_TITLE_QUIT = "退出游戏"
 
+define COPY_HUD_RETURN = "Return"
+define COPY_HUD_AUTO = "Auto"
+define COPY_HUD_SETTING = "Setting"
+define COPY_HUD_LOG = "Log"
+define COPY_HUD_SAVE = "Save"
+define COPY_HUD_SAVED = "已保存"
+
 define COPY_STAFF_LINES = [
     "脚本：弥生",
     "演出：四月",
