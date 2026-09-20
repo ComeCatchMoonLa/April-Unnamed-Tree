@@ -69,7 +69,30 @@ init python:
         def enter_after(self):
             if not UnlockStore.is_after_unlocked():
                 return False
+            rec = SaveStore.load_slot(SLOT_MAIN)
+            if rec is not None and rec.chapter_id == "after":
+                ctx = PlayContext(
+                    "play",
+                    rec.chapter_id,
+                    rec.node_id,
+                    rec.line_id,
+                    rec.style,
+                    rec.route,
+                )
+                self._bind(ctx)
+                jump_to_line(rec.line_id)
+                return True
             return self._enter_play_node("after_start")
+
+        def complete_after_chapter(self):
+            ctx = self._context
+            if ctx is not None and ctx.play_mode == "play":
+                UnlockStore.unlock_inner()
+                # 章末停在门口，再点「后日谈」从首句重读，不卡在末句。
+                self._park_after_door()
+                self.commit_leave()
+                return
+            self.advance_replay()
 
         def enter_inner(self):
             if not UnlockStore.is_inner_unlocked():

@@ -21,6 +21,10 @@ init python:
         "ch3_ura3": "bg_sakura_yard",
         "ch3_omote5": "bg_ninth_spring",
         "ch3_staff": "white",
+        "after_start": "bg_apartment_morning",
+        "after_read": "bg_dining",
+        "after_night": "bg_bedroom_night",
+        "after_tree": "bg_slope_sakura",
     }
 
     def script_say(line_id, who, what):
@@ -49,7 +53,7 @@ init python:
             renpy.jump(extra)
             return
         ctx = PlaySession.current()
-        # after / inner 尚无全文：回放用占位句。ch1–ch3 已写的节点不得走这里。
+        # inner 尚无全文：回放用占位句。已写的章不得走这里。
         if ctx is not None and ctx.play_mode == "replay" and seq == "0001":
             renpy.jump("replay_stub")
             return
@@ -60,13 +64,6 @@ init python:
         PlaySession._clear()
         renpy.jump("boot")
 
-
-label after_start:
-    $ PlaySession.on_node_reached("after_start")
-    $ PlaySession.on_line_shown("after_start:0001")
-    "占位：after_start:0001"
-    $ PlaySession.advance_replay()
-    $ PlaySession.commit_leave()
 
 label inner_start:
     $ PlaySession.on_node_reached("inner_start")

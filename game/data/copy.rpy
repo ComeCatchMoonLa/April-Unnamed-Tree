@@ -10,6 +10,7 @@ define COPY_CHOICE_TRUE_END = "结束"
 
 define CHAR_YAYOI = Character("弥生")
 define CHAR_ME = Character("我")
+define CHAR_HE = Character("他")
 
 define COPY_LOG_CHOICE_PREFIX = "选择："
 define COPY_LOG_CHOICE_UNSELECTED = "选项（未选择）"
