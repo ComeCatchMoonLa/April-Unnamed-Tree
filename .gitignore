@@ -1,31 +1,5 @@
-# Ren'Py
+# Ren'Py 编译与运行时（现有）
 *.rpyc
-*.rpymc
-*.rpa
-cache/
-saves/
-game/saves/
 game/cache/
-
-# 构建
-dist/
-*.apk
-*.aab
-*.exe
-
-# 本地
-.vscode/*
-!.vscode/extensions.json
-!.vscode/settings.json
-.idea/
-*.log
+game/saves/
 log.txt
-traceback.txt
-lint.txt
-__pycache__/
-.python-version
-
-# 系统
-Thumbs.db
-Desktop.ini
-.DS_Store

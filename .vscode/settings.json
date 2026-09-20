@@ -5,16 +5,13 @@
   },
   "files.exclude": {
     "**/*.rpyc": true,
-    "**/*.rpymc": true,
-    "**/*.rpa": true,
     "**/cache": true,
     "**/saves": true
   },
   "search.exclude": {
     "**/*.rpyc": true,
     "**/cache": true,
-    "**/saves": true,
-    "**/dist": true
+    "**/saves": true
   },
   "[renpy]": {
     "editor.formatOnSave": false,

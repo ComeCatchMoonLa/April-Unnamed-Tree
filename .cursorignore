@@ -1,23 +1,6 @@
-# 引擎编译结果与运行时文件，不是剧本或接口
+# 现有运行时与二进制字体（OFL.txt 不忽略）
 *.rpyc
-*.rpymc
-*.rpa
-cache/
-saves/
 game/cache/
 game/saves/
-
-# Launcher 在仓库根写下的日志
 log.txt
-traceback.txt
-lint.txt
-*.log
-
-# 构建产物
-dist/
-*.apk
-*.aab
-*.exe
-
-# 仓库里的 Noto .otf 是二进制，索引读不出字形；OFL.txt 仍保留
-*.otf
+*.ttf

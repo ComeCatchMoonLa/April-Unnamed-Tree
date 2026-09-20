@@ -1,4 +1,3 @@
 {
-  "recommendations": ["renpy.language-renpy"],
-  "unwantedRecommendations": ["LuqueDaniel.languague-renpy"]
+  "recommendations": ["renpy.language-renpy"]
 }
