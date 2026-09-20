@@ -3,7 +3,7 @@
 - 目的：给出播放会话、Auto、选择肢、screen 与 label 契约。
 - 读者：system、UI、脚本、评审、AI 会话。
 - 关系：数据层见 [接口设计-数据与存档](接口设计-数据与存档.md)；行为见 [游戏设计-存档与播放](游戏设计-存档与播放.md) 与 [游戏设计-界面与操作](游戏设计-界面与操作.md)。
-- 版本：v1.6
+- 版本：v1.7
 - 日期：2026-09-20
 
 参数不得超过 5 个。会话状态放在 `PlayContext`，不要把上下文拆成一长串实参。
@@ -30,10 +30,11 @@ PlayContext
 | `continue_game` | 无 | `bool` | 无槽 False；有槽从 `line_id` 句首跳（标题仅在未解锁后日谈时调用） |
 | `enter_after` | 无 | `bool` | 未解锁 False；槽在 after 则续该句，否则进 `after_start` |
 | `enter_inner` | 无 | `bool` | 未解锁 False；槽在 inner 则续该句，否则进 `inner_start` |
-| `enter_replay` | `node_id` | `bool` | 未解锁 False；`replay`；不写槽 |
-| `on_node_reached` | `node_id` | `None` | play：unlock 节点 + 写槽；replay：忽略写槽 |
+| `enter_replay` | `node_id` | `bool` | 未解锁 False；`replay`；不写槽。播到本章连续已解锁末句 |
+| `on_node_reached` | `node_id` | `None` | play：unlock 节点 + 写槽；replay：不写槽；未解锁则回鉴赏 |
 | `on_cg_shown` | `cg_id` | `None` | play：unlock CG；replay：忽略 |
 | `on_line_shown` | `line_id` | `None` | 更新上下文当前句；不写槽 |
+| `advance_replay` | 无 | `bool` | 仅 replay；下一节点已解锁则进入，否则回鉴赏 |
 | `commit_leave` | 无 | `None` | play 写当前句后回标题；replay 不写，回鉴赏 |
 | `apply_style` | `style` | `None` | 改对话框样式 |
 | `sync_inner_dim` | 无 | `None` | `chapter_id==inner` 则开暗层，否则关 |
@@ -43,6 +44,8 @@ PlayContext
 `continue_game`：无槽或槽损坏返回 False。标题只在有槽且尚未 `after_unlocked` 时调用。真选项之后的 after/inner 续玩见存档与播放文 §3.4，走 `enter_after` / `enter_inner`。
 
 `start_new_game`：把槽写成 `ch1_start` 首句。玩家标题仅在无槽时调用；有槽不得出现「新的游戏」。调试探针仍可调用（会覆盖槽）。
+
+回放：`advance_replay` 与章脚本 `jump` 下一节点，都不得进入未解锁节点（含不得用 `replay_stub` 走过）。停界与 Return 一样回鉴赏。回放不解锁。
 
 真选项「结束」：`unlock_after`；`write_line` 为 after 首句；回标题。不要进入 after 播放。
 
@@ -139,7 +142,7 @@ HUD 与快捷键必须调用同一 PlaySession 函数（Return/Save）以及同�
 实现本接口算完成，当且仅当：
 
 - 无槽「新的游戏」/ 有槽「继续」/ 解锁后「后日谈」+ 可选「里」/ 鉴赏回放 / 真选项两条路径可按契约走通
-- replay 下 Save、节点到达、Return、退出都不写槽；Return 与章末回鉴赏
+- replay 下 Save、节点到达、Return、退出都不写槽；Return 与连续已解锁末句回鉴赏；不得越过未解锁节点
 - Auto 为引擎默认 AFM（`toggle_afm` + preference）
 - 所有 screen 名称与上表一致（允许加前缀但评审文档须同步；本版本就用上表名）
 
@@ -154,3 +157,4 @@ HUD 与快捷键必须调用同一 PlaySession 函数（Return/Save）以及同�
 | v1.4 | 设置三项；速度带动 CPS；快捷键页两列；保留 `F`。 |
 | v1.5 | 快捷键页不要求表格对齐。 |
 | v1.6 | `commit_leave`：replay 回鉴赏；play 仍回标题。 |
+| v1.7 | `advance_replay`：下一节点未解锁则回鉴赏；章内 jump 同样检查。 |
