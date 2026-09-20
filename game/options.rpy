@@ -2,7 +2,7 @@
 
 define config.name = _("四月，未命名的树")
 define gui.show_name = True
-define config.version = "0.1.0"
+define config.version = "0.2.0"
 define build.name = "AprilUnnamedTree"
 define config.save_directory = "AprilUnnamedTree"
 
