@@ -350,5 +350,6 @@ label ch3_staff_0008:
     $ script_say("ch3_staff:0008", None, "你的四月，不归我写。")
 label ch3_staff_0009:
     $ script_say("ch3_staff:0009", None, "该你了。）")
+    # 共同散场之后才分去向；回放 complete 无副作用。
     $ PlaySession.complete_true_choice(_true_picked)
     $ PlaySession.advance_replay()

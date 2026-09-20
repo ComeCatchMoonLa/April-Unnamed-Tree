@@ -179,10 +179,16 @@ init python:
             if ctx is None or ctx.play_mode != "play":
                 return
             UnlockStore.unlock_after()
+            if renpy.get_screen("scr_log"):
+                renpy.hide_screen("scr_log")
+            if renpy.get_screen("scr_settings"):
+                renpy.hide_screen("scr_settings")
+            self._park_after_door()
             if picked == "continue":
-                self._enter_play_node("after_start")
+                renpy.jump("boot")
                 return
-            self._end_to_after_slot()
+            # 散场已说完；与标题退出同一无确认，不要再问一次。
+            renpy.quit()
 
         def commit_leave(self):
             replay = self._context is not None and self._context.play_mode == "replay"
@@ -281,11 +287,11 @@ init python:
                     lines.append("    %s" % caption)
             self._log_system_line("\n".join(lines))
 
-        def _end_to_after_slot(self):
+        def _park_after_door(self):
             first = NodeCatalog.first_line_id("after_start")
             node = NodeCatalog.get_node("after_start")
             if first is None or node is None:
-                self.commit_leave()
+                self.flush_leave()
                 return
             route = NodeCatalog.route_of_chapter(node.chapter_id)
             ctx = PlayContext(
@@ -299,7 +305,6 @@ init python:
             self._bind(ctx)
             SaveStore.write_line(SLOT_MAIN, self.current_line_ref())
             self._clear()
-            renpy.jump("boot")
 
     PlaySession = _PlaySession()
 
