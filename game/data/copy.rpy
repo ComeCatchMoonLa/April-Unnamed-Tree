@@ -44,7 +44,7 @@ define COPY_HOTKEY_HELP = (
     "L  Log（游戏场景）\n"
     "S  Save（游戏场景，回放中无效）\n"
     "F1  Setting（游戏场景、主界面、鉴赏、名单）\n"
-    "Esc  Return（游戏场景回标题）\n"
+    "Esc  Return（游玩回标题；回放回鉴赏）\n"
     "F  窗口 / 全屏（仅 Windows）\n"
     "设置打开时，F1 或关闭按钮关掉设置，不触发 Return。"
 )

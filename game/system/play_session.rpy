@@ -175,7 +175,14 @@ init python:
             self._end_to_after_slot()
 
         def commit_leave(self):
+            replay = self._context is not None and self._context.play_mode == "replay"
+            if renpy.get_screen("scr_log"):
+                renpy.hide_screen("scr_log")
+            if renpy.get_screen("scr_settings"):
+                renpy.hide_screen("scr_settings")
             self.flush_leave()
+            if replay:
+                renpy.store.gallery_reopen = True
             renpy.jump("boot")
 
         def flush_leave(self):

@@ -19,5 +19,8 @@ label title_loop:
     scene white
     # 探针或占位句末 jump boot 时可能还挂着会话/暗层。
     $ PlaySession._clear()
+    if gallery_reopen:
+        $ gallery_reopen = False
+        show screen scr_gallery
     call screen scr_title
     jump title_loop

@@ -1,4 +1,9 @@
 # 章节/CG 分页。CG 全屏不是文本 replay，不进 PlaySession。
+# 分页/章签放 store，回放离开后才能停在进去的位置。
+
+default gallery_reopen = False
+default gallery_page = "chapters"
+default gallery_chapter_id = "ch1"
 
 init python:
     def gallery_start_replay(node_id):
@@ -65,8 +70,6 @@ screen gallery_cg_row(cg):
 screen scr_gallery():
     modal True
     zorder 50
-    default page = "chapters"
-    default chapter_id = "ch1"
 
     add Solid("#FFFFFF")
 
@@ -79,20 +82,20 @@ screen scr_gallery():
         hbox:
             xalign 0.5
             spacing 24
-            use gallery_tab(COPY_GALLERY_CHAPTER, page == "chapters", SetScreenVariable("page", "chapters"))
-            use gallery_tab(COPY_GALLERY_CG, page == "cgs", SetScreenVariable("page", "cgs"))
+            use gallery_tab(COPY_GALLERY_CHAPTER, gallery_page == "chapters", SetVariable("gallery_page", "chapters"))
+            use gallery_tab(COPY_GALLERY_CG, gallery_page == "cgs", SetVariable("gallery_page", "cgs"))
 
-        if page == "chapters":
+        if gallery_page == "chapters":
             hbox:
                 xalign 0.5
                 spacing 16
                 for tab_id, tab_name in COPY_GALLERY_CHAPTER_TABS:
-                    use gallery_tab(tab_name, chapter_id == tab_id, SetScreenVariable("chapter_id", tab_id))
+                    use gallery_tab(tab_name, gallery_chapter_id == tab_id, SetVariable("gallery_chapter_id", tab_id))
 
             vbox:
                 xalign 0.5
                 spacing 4
-                for node in NodeCatalog.nodes_in_chapter(chapter_id):
+                for node in NodeCatalog.nodes_in_chapter(gallery_chapter_id):
                     use gallery_node_row(node)
         else:
             vbox:
