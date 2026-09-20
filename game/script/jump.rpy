@@ -25,6 +25,12 @@ init python:
         "after_read": "bg_dining",
         "after_night": "bg_bedroom_night",
         "after_tree": "bg_slope_sakura",
+        "inner_start": "bg_kitchen",
+        "inner_mail": "bg_dining",
+        "inner_note": "bg_dining",
+        "inner_night": "bg_bedroom_inner",
+        "inner_slope": "bg_slope_inner",
+        "inner_end": "bg_kitchen",
     }
 
     def script_say(line_id, who, what):
@@ -53,7 +59,7 @@ init python:
             renpy.jump(extra)
             return
         ctx = PlaySession.current()
-        # inner 尚无全文：回放用占位句。已写的章不得走这里。
+        # 未写的节点回放才走占位句。
         if ctx is not None and ctx.play_mode == "replay" and seq == "0001":
             renpy.jump("replay_stub")
             return
@@ -64,13 +70,6 @@ init python:
         PlaySession._clear()
         renpy.jump("boot")
 
-
-label inner_start:
-    $ PlaySession.on_node_reached("inner_start")
-    $ PlaySession.on_line_shown("inner_start:0001")
-    "占位：inner_start:0001"
-    $ PlaySession.advance_replay()
-    $ PlaySession.commit_leave()
 
 label replay_stub:
     $ _stub_ctx = PlaySession.current()

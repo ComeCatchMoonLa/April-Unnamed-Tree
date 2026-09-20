@@ -97,7 +97,28 @@ init python:
         def enter_inner(self):
             if not UnlockStore.is_inner_unlocked():
                 return False
+            rec = SaveStore.load_slot(SLOT_MAIN)
+            if rec is not None and rec.chapter_id == "inner":
+                ctx = PlayContext(
+                    "play",
+                    rec.chapter_id,
+                    rec.node_id,
+                    rec.line_id,
+                    rec.style,
+                    rec.route,
+                )
+                self._bind(ctx)
+                jump_to_line(rec.line_id)
+                return True
             return self._enter_play_node("inner_start")
+
+        def complete_inner_chapter(self):
+            ctx = self._context
+            if ctx is not None and ctx.play_mode == "play":
+                # 槽停在末句；再点「里·后日谈」仍是这句，不回首章。
+                self.commit_leave()
+                return
+            self.advance_replay()
 
         def enter_replay(self, node_id):
             if not UnlockStore.is_node_unlocked(node_id):
