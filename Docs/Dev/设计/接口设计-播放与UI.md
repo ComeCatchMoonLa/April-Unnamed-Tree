@@ -3,7 +3,7 @@
 - 目的：给出播放会话、Auto、选择肢、screen 与 label 契约。
 - 读者：system、UI、脚本、评审、AI 会话。
 - 关系：数据层见 [接口设计-数据与存档](接口设计-数据与存档.md)；行为见 [游戏设计-存档与播放](游戏设计-存档与播放.md) 与 [游戏设计-界面与操作](游戏设计-界面与操作.md)。
-- 版本：v1.7
+- 版本：v1.8
 - 日期：2026-09-20
 
 参数不得超过 5 个。会话状态放在 `PlayContext`，不要把上下文拆成一长串实参。
@@ -36,6 +36,8 @@ PlayContext
 | `on_line_shown` | `line_id` | `None` | 更新上下文当前句；不写槽 |
 | `advance_replay` | 无 | `bool` | 仅 replay；下一节点已解锁则进入，否则回鉴赏 |
 | `commit_leave` | 无 | `None` | play 写当前句后回标题；replay 不写，回鉴赏 |
+| `run_choice_true` | 无 | `continue` / `end` | 出屏与 Log；不解锁、不跳转 |
+| `complete_true_choice` | `picked` | `None` | 见下方真选项规则 |
 | `apply_style` | `style` | `None` | 改对话框样式 |
 | `sync_inner_dim` | 无 | `None` | `chapter_id==inner` 则开暗层，否则关 |
 | `current` | 无 | `PlayContext \| None` | 无 |
@@ -47,9 +49,11 @@ PlayContext
 
 回放：`advance_replay` 与章脚本 `jump` 下一节点，都不得进入未解锁节点（含不得用 `replay_stub` 走过）。停界与 Return 一样回鉴赏。回放不解锁。
 
-真选项「结束」：`unlock_after`；`write_line` 为 after 首句；回标题。不要进入 after 播放。
+真选项「继续」：`unlock_after`；`write_line` 为 after 首句；回标题。不要进入 after 播放。
 
-真选项「继续」：`unlock_after`；进入 `after_start` 播放。
+真选项「结束」：`unlock_after`；`write_line` 为 after 首句；无确认退出。不要进入 after 播放。回放不退出、不写槽。
+
+章脚本先上屏散场句，再调 `complete_true_choice`。`run_choice_true` 只负责出屏与 Log。
 
 后日谈章末：`unlock_inner`。
 
@@ -74,7 +78,8 @@ PlayContext
 |---|---|---|
 | `run_choice_fake` | `left: string`, `right: string` | 两可点按钮；点任一继续；Log「选择：文案」；无分支变量 |
 | `run_choice_display` | `left: string`, `right: string` | 不可点；空白/对话框点击关闭；Log「选项（未选择）」 |
-| `run_choice_true` | 无 | 固定「继续」「结束」；见 PlaySession 规则 |
+| `run_choice_true` | 无 | 固定「继续」「结束」；返回 picked；见 PlaySession 规则 |
+| `complete_true_choice` | `picked` | play：解锁并写 after 首句；继续回标题，结束退出。replay：无副作用 |
 
 文案常量（首章/中章）放 data 或脚本字面量均可，但不得在 UI 里改字。
 
@@ -158,3 +163,4 @@ HUD 与快捷键必须调用同一 PlaySession 函数（Return/Save）以及同�
 | v1.5 | 快捷键页不要求表格对齐。 |
 | v1.6 | `commit_leave`：replay 回鉴赏；play 仍回标题。 |
 | v1.7 | `advance_replay`：下一节点未解锁则回鉴赏；章内 jump 同样检查。 |
+| v1.8 | 真选项：`run_choice_true` 只出屏；`complete_true_choice` 在散场后分回标题 / 退出。 |
