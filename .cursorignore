@@ -2,5 +2,4 @@
 *.rpyc
 game/cache/
 game/saves/
-log.txt
 *.ttf
