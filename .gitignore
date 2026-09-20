@@ -4,3 +4,11 @@ game/cache/
 game/saves/
 log.txt
 traceback.txt
+
+# 构建与签名（不要进库）
+dist/
+*.apk
+*.aab
+*.keystore
+android.keystore
+bundle.keystore
