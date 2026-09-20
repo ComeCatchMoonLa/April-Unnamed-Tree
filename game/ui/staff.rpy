@@ -15,8 +15,8 @@ screen scr_staff_menu():
             for line in COPY_STAFF_LINES:
                 text line:
                     color "#000000"
-                    size 22
-                    font gui.interface_text_font
+                    size ui_text_size
+                    font sakura_font
                     xalign 0.5
 
     key "K_ESCAPE" action Hide("scr_staff_menu")

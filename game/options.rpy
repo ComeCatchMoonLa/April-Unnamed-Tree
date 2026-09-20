@@ -2,9 +2,10 @@
 
 define config.name = _("四月，未命名的树")
 define gui.show_name = True
-define config.version = "0.4.0"
+define config.version = "0.5.0"
 define build.name = "AprilUnnamedTree"
 define config.save_directory = "AprilUnnamedTree"
+define config.history_length = 250
 
 # 本版本静音；不要因缺音频文件报错。
 define config.has_sound = False
@@ -23,7 +24,7 @@ define config.window_hide_transition = None
 # auto：有对白才出窗口。占位白屏不要底部空对话框。
 define config.window = "auto"
 
-# 打字速度固定；句间 AFM 默认见 engine_flags。
+# 打字与句间等待的默认中档；运行时由 SettingsStore.sync_afm 覆盖。
 default preferences.text_cps = 50
 default preferences.afm_time = 15
 

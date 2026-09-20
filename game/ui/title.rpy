@@ -3,10 +3,10 @@
 screen title_entry(caption, btn_action, emphasized=False):
     textbutton caption:
         action btn_action
-        text_size (30 if emphasized else 22)
+        text_size (ui_text_size + 8 if emphasized else ui_text_size)
         text_color "#000000"
         text_hover_color "#333333"
-        text_font gui.interface_text_font
+        text_font sakura_font
         background None
         hover_background None
         xalign 0.5
@@ -29,7 +29,7 @@ screen scr_title():
         text config.name:
             color "#000000"
             size gui.title_text_size
-            font gui.interface_text_font
+            font sakura_font
             xalign 0.5
             textalign 0.5
 

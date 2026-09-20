@@ -10,10 +10,10 @@ screen say(who, what):
         padding (40, 20, 40, 20)
 
         if who is not None:
-            text who id "who" color dialogue_text_color size 28 font gui.text_font
-            text what id "what" color dialogue_text_color size 22 ypos 40 font gui.text_font
+            text who id "who" color dialogue_text_color size dialogue_name_size font sakura_font
+            text what id "what" color dialogue_text_color size dialogue_text_size ypos 40 font sakura_font
         else:
-            text what id "what" color dialogue_text_color size 22 font gui.text_font
+            text what id "what" color dialogue_text_color size dialogue_text_size font sakura_font
 
 screen choice(items):
     vbox:
@@ -48,8 +48,8 @@ screen notify(message):
     zorder 100
     text message:
         color "#000000"
-        size 18
-        font gui.interface_text_font
+        size ui_text_size
+        font sakura_font
         xpos 20
         ypos 20
     timer 2.0 action Hide("notify")

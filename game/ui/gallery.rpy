@@ -10,8 +10,8 @@ screen scr_gallery():
         action Hide("scr_gallery")
         text COPY_TITLE_GALLERY:
             color "#000000"
-            size 28
-            font gui.interface_text_font
+            size dialogue_name_size
+            font sakura_font
             xalign 0.5
             yalign 0.5
 

@@ -4,10 +4,9 @@ init python:
     gui.init(1280, 720)
     config.check_conflicting_properties = True
 
-# 衬线 `fonts/NotoSerifSC-Regular.otf` 已入包，设置页再切换；本版默认无衬线。
-define gui.text_font = "fonts/NotoSansSC-Regular.otf"
-define gui.name_text_font = "fonts/NotoSansSC-Regular.otf"
-define gui.interface_text_font = "fonts/NotoSansSC-Regular.otf"
+define gui.text_font = "fonts/MAPLEMONO-NF-CN-REGULAR.TTF"
+define gui.name_text_font = "fonts/MAPLEMONO-NF-CN-REGULAR.TTF"
+define gui.interface_text_font = "fonts/MAPLEMONO-NF-CN-REGULAR.TTF"
 
 define gui.accent_color = "#000000"
 define gui.idle_color = "#000000"

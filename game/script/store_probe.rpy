@@ -27,18 +27,18 @@ label store_probe:
         _probe_node = UnlockStore.is_node_unlocked("ch1_start")
         _probe_after = UnlockStore.is_after_unlocked()
         _probe_unknown = UnlockStore.is_node_unlocked("no_such_node")
-        _probe_settings = SettingsRecord("fast", "large", "serif", "fullscreen")
+        _probe_settings = SettingsRecord("fast", "large", "fullscreen")
         _probe_saved = SettingsStore.save(_probe_settings)
         SettingsStore.sync_afm()
         _probe_loaded = SettingsStore.load()
         _probe_cps = SettingsStore.text_cps()
         _probe_afm = _probe_loaded.afm_level
         _probe_size = _probe_loaded.font_size_level
-        _probe_font = _probe_loaded.font_id
         _probe_afm_time = preferences.afm_time
+        _probe_pref_cps = preferences.text_cps
     "存档：写入 [_probe_write] 拒绝回放 [_probe_reject] line_id=[_probe_line_id] reserved空=[_probe_reserved_ok]"
     "解锁：节点 [_probe_node] after [_probe_after] 未知 [_probe_unknown]"
-    "设置：保存 [_probe_saved] afm=[_probe_afm] 字号=[_probe_size] 字体=[_probe_font] cps=[_probe_cps] afm_time=[_probe_afm_time]"
+    "设置：保存 [_probe_saved] afm=[_probe_afm] 字号=[_probe_size] cps=[_probe_cps]/[_probe_pref_cps] afm_time=[_probe_afm_time]"
     jump boot
 
 label store_probe_reload:

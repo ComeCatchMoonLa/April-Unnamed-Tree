@@ -34,6 +34,7 @@ init 1 python:
     config.keymap["self_voicing"] = []
     config.keymap["clipboard_voicing"] = []
     # F1/S 改走 hud 里的 sakura_*，这里先摘掉默认帮助和截图。
+    # 保留 toggle_fullscreen（F），不要清空。
     config.keymap["screenshot"] = []
     config.keymap["help"] = []
     config.help = None

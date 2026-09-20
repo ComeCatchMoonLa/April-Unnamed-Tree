@@ -50,11 +50,11 @@ screen hud_entry(caption, btn_action, enabled=True, selected_on=False):
         sensitive enabled
         selected selected_on
         text_bold selected_on
-        text_size 18
+        text_size ui_text_size
         text_color "#000000"
         text_hover_color "#333333"
         text_insensitive_color "#888888"
-        text_font gui.interface_text_font
+        text_font sakura_font
         background None
         hover_background None
         padding (6, 4)
