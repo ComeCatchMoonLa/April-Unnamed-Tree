@@ -35,7 +35,16 @@ init python:
 
     def script_say(line_id, who, what):
         PlaySession.on_line_shown(line_id)
-        renpy.say(who, what)
+        who_name = None if who is None else getattr(who, "name", who)
+        skip_history = PlaySession._history_has(what, who_name)
+        previous = getattr(renpy.store, "_history", True)
+        if skip_history:
+            renpy.store._history = False
+        try:
+            renpy.say(who, what)
+        finally:
+            if skip_history:
+                renpy.store._history = previous
 
     def script_restore_visuals(node_id):
         image_id = _NODE_IMAGE.get(node_id)

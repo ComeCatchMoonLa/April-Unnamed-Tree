@@ -317,6 +317,12 @@ init python:
                 return "ura"
             return "omote"
 
+        def _history_has(self, what, who=None):
+            for entry in getattr(renpy.store, "_history_list", []):
+                if getattr(entry, "what", None) == what and getattr(entry, "who", None) == who:
+                    return True
+            return False
+
         def _log_system_line(self, what):
             narrator.add_history("adv", None, what)
 
@@ -331,7 +337,10 @@ init python:
                     lines.append("{color=#008000}    %s{/color}" % caption)
                 else:
                     lines.append("    %s" % caption)
-            self._log_system_line("\n".join(lines))
+            what = "\n".join(lines)
+            if self._history_has(what):
+                return
+            self._log_system_line(what)
 
         def _park_after_door(self):
             first = NodeCatalog.first_line_id("after_start")
