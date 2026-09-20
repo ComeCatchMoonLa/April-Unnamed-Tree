@@ -74,5 +74,5 @@ define COPY_GALLERY_CHAPTER_TABS = (
     ("ch2", "中章"),
     ("ch3", "尾章"),
     ("after", "后日谈"),
-    ("inner", "里"),
+    ("inner", "里·后日谈"),
 )
