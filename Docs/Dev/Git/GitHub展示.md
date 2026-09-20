@@ -3,8 +3,8 @@
 - 目的：同时服务开发者克隆与玩家下载。本轮只给模板，不创建仓库根 README、不建 Pages、不选定 License。
 - 读者：初始化 GitHub 仓库的人。
 - 关系：忽略规则见 [Git工作流](Git工作流.md)。文档入口仍是 [Docs/Dev/README.md](../README.md)。小版本见 [Docs/Ver/README.md](../../Ver/README.md)。
-- 版本：v1.1
-- 日期：2026-09-15
+- 版本：v1.2
+- 日期：2026-09-20
 
 ## 1. 仓库 About
 
@@ -56,8 +56,8 @@ game/     脚本、系统、UI、数据、占位图、字体
 
 | 平台 | 文件名 |
 |---|---|
-| Windows | `April-Unnamed-Tree-win-vX.Y.Z.zip` |
-| Android | `April-Unnamed-Tree-android-vX.Y.Z.apk` |
+| Windows | `April-Unnamed-Tree-win-vX.Y.Z.7z`（Launcher 默认 zip，Release 改压 7z） |
+| Android | `April-Unnamed-Tree-android-vX.Y.Z.apk`（Universal APK；不上 AAB） |
 
 Release 说明至少含：
 
@@ -67,7 +67,7 @@ Release 说明至少含：
 - 单存档、无回滚
 - 文档不面向玩家；玩家不需要装 Ren'Py SDK
 
-截图：允许白底标题与对话各一张，放 `Docs/Res/screenshots/`（该目录实现阶段再建）。不要用程序花瓣图冒充成品。
+截图：`Docs/Res/标题主界面.png`、`Docs/Res/对白.png`。不要设置/Log/鉴赏，不要程序花瓣图。
 
 ## 4. GitHub Pages
 
@@ -95,3 +95,4 @@ Release 说明至少含：
 |---|---|
 | v1.0 | 开发者 README 模板 + 玩家 Release/Pages 约定；License 待填。 |
 | v1.1 | 根 README 模板增加 Docs/Ver 入口。 |
+| v1.2 | Win Release 改为 `.7z`；Android 用 Universal APK；截图定为标题+对白。 |
